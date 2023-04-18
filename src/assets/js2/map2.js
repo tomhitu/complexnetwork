@@ -21,9 +21,9 @@ setTimeout(() => {
 
 myChart2.showLoading();
 $(document).ready(function() {
-    axios.get('http://127.0.0.1:8000/paris_map_generate?type=paris')
+    axios.get('https://tomhitu.pythonanywhere.com/paris_map_generate?type=paris')
         .then(function (response) {
-            myChart.hideLoading();
+            myChart2.hideLoading();
             let data = response.data;
             datalocal2 = data;
             console.log(datalocal2);
@@ -61,13 +61,13 @@ $(document).ready(function() {
                             },
                         },
                         viewControl: {
-                            distance: 120,
+                            distance: 140,
                             panMouseButton: 'left',
                             rotateMouseButton: 'right',
                             animation: true,
                             animationDurationUpdate: 100,
                             animationEasingUpdate: 'cubicInOut',
-                            minDistance: 10,
+                            minDistance: 1,
                             maxDistance: 140,
                             alpha: 35,
                         },
@@ -86,7 +86,7 @@ $(document).ready(function() {
                     },
                     series: [
                         {
-                            name: "Nodes",
+                            name: "Nodes1",
                             type: "scatter3D",
                             coordinateSystem: "geo3D",
                             symbolSize: 8,
@@ -113,7 +113,7 @@ $(document).ready(function() {
                             },
                         },
                         {
-                            name: "Edges",
+                            name: "Edges1",
                             type: "lines3D",
                             coordinateSystem: "geo3D",
                             effect: {
@@ -131,11 +131,9 @@ $(document).ready(function() {
                                 z: 2
                             },
                             data: data.edges.map(function (e) {
-                                const sourceNode = data.nodes.find((node) => node.name === e.source);
-                                const targetNode = data.nodes.find((node) => node.name === e.target);
                                 const color = '#fff';
                                 return {
-                                    coords: [sourceNode.value, targetNode.value],
+                                    coords: [e.value[0], e.value[1]],
                                     lineStyle: {
                                         color: color
                                     }

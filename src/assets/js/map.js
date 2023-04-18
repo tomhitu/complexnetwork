@@ -37,11 +37,10 @@ $(document).ready(function() {
             myChart.hideLoading();
             let data = response.data;
             datalocal = data;
-            console.log(datalocal);
             myChart.setOption(
                     option = {
                       geo3D: {
-                        map: "world",
+                        map: "china",
                         boxWidth: 100,
                         boxHeight: 10,
                         boxDepth: 100,
@@ -78,7 +77,7 @@ $(document).ready(function() {
                           animation: true,
                           animationDurationUpdate: 100,
                           animationEasingUpdate: 'cubicInOut',
-                          minDistance: 0,
+                          minDistance: 1,
                           maxDistance: 140,
                           alpha: 35,
                         },

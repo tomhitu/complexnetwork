@@ -305,3 +305,13 @@ function cluster_edge() {
     clustertype = 7;
     cltype(clustertype);
 }
+
+function shownodecluster() {
+    chartDom.style.display = 'block';
+    chartDom2.style.display = 'none';
+}
+
+function showedgecluster() {
+    chartDom.style.display = 'none';
+    chartDom2.style.display = 'block';
+}
