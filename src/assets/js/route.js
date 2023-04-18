@@ -8,7 +8,7 @@ function swap(){
 function spath(){
     let start_node = document.getElementById("startpoint").value;
     let end_node = document.getElementById("endpoint").value;
-    axios.post('http://tomhitu.pythonanywhere.com/shortest_path', {
+    axios.post('https://tomhitu.pythonanywhere.com/shortest_path', {
         startnode: start_node,
         endnode: end_node
     })

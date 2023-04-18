@@ -50,7 +50,7 @@ function prededge() {
     let lat_node = document.getElementById("latpoint").value;
     nonepe.style.display = 'none';
     resultpe.style.display = 'block';
-    axios.post('http://tomhitu.pythonanywhere.com/pred_edges', {
+    axios.post('https://tomhitu.pythonanywhere.com/pred_edges', {
         longitude: lon_node,
         latitude: lat_node
     })

@@ -32,7 +32,7 @@ setTimeout(() => {
 
 myChart.showLoading();
 $(document).ready(function() {
-  axios.get('http://tomhitu.pythonanywhere.com/map_generate?type=map')
+  axios.get('https://tomhitu.pythonanywhere.com/map_generate?type=map')
           .then(function (response) {
             myChart.hideLoading();
             let data = response.data;
