@@ -1,0 +1,74 @@
+canvas {
+    float: left;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 800px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #191919;
+  color: #000;
+  font-size: 24px;
+}
+
+@keyframes loading {
+    0% {
+        opacity: 1;
+    }
+    25% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.loading{
+    animation: loading 4s infinite;
+}
+
+.floating-box {
+    background-color: #333232;
+    height: 100%;
+    /*text-align: center;*/
+    padding: 20px;
+    transition: all 0.2s ease-out;
+}
+
+#subtitle {
+    position: fixed;
+    top: 30px;
+    left: 290px;
+}
+
+
+#dataset {
+    position: fixed;
+    top: 30px;
+    left: 700px;
+}
+
+#clustertype {
+    cusor: pointer;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 100px;
+    left: 320px;
+}

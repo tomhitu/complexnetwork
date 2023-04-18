@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <title>Railway China</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="net.ico">
+
+
+    <link rel="stylesheet" href="assets/css/mystyle.css">
+   <link rel="stylesheet" href="assets/css/form.css">
+   <link rel="stylesheet" href="assets/css/inbox.css">
+   <link rel="stylesheet" href="assets/css/result.css">
+   <link rel="stylesheet" href="assets/css/resilience.css">
+
+    <script id='shader-fs' type='x-shader/x-fragment'>
+    #ifdef GL_ES
+    precision highp float;
+    #endif
+
+    varying vec3 mColor;
+
+    void main(void) {
+        gl_FragColor = vec4(mColor, 1.0);
+    }
+    </script>
+
+    <!-- Vertex Shader //-->
+    <script id='shader-vs' type='x-shader/x-vertex'>
+    attribute vec3 aVertexPosition;
+    attribute vec3 aVertexColor;
+
+    varying vec3 mColor;
+
+    uniform mat4 uMMatrix;
+    uniform mat4 uVMatrix;
+    uniform mat4 uPMatrix;
+
+    void main(void) {
+        mColor = aVertexColor;
+        gl_Position = uPMatrix * uVMatrix * uMMatrix * vec4(aVertexPosition, 1.0);
+        gl_PointSize = 3.0;
+    }
+    </script>
+</head>
+
+<body>
+<div class="dashboard-page">
+  <div id="sidebar" class="sidebar sidebar-default open" role="navigation">
+    <!-- Sidebar header -->
+    <div class="sidebar-header header-cover" style="background-image: url('assets/pic/avatar.jpg');"></div>
+
+    <!-- Sidebar navigation -->
+    <ul class="nav sidebar-nav">
+        <!-- Sidebar brand name -->
+        <li class="sidebar-brand">
+            Rational Rascals
+        </li>
+        <li onclick="showtype(true, 0)">
+            <a href="#">
+                <i class="sidebar-icon md-inbox"></i>
+                Shortest Path
+            </a>
+        </li>
+        <li onclick="showtype(false, 1)">
+            <a href="#">
+                <i class="sidebar-icon md-star"></i>
+                Pred Edge
+            </a>
+        </li>
+        <li onclick="showtype(false, 2)">
+            <a href="#">
+                <i class="sidebar-icon md-send"></i>
+                Network Resilience
+            </a>
+        </li>
+        <li onclick="showtype(false, 3)">
+            <a href="#">
+                <i class="sidebar-icon md-drafts"></i>
+                Cluster Classification
+            </a>
+        </li>
+        <li onclick="showtype(false, 4)">
+            <a href="#">
+                <i class="sidebar-icon md-drafts"></i>
+                Hidden Edge
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li id="typeoftrian">
+            <div class="container">
+                <form>
+                    <div class="label-left">
+                        <label>
+                            <input type="radio" name="radio" checked="">
+                            <span onclick="defaultcolor()">Default</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio">
+                            <span onclick="toggleEdges('N')">only number</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio">
+                            <span onclick="toggleEdges('C')">only C</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio">
+                            <span onclick="toggleEdges('D')">only D</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio">
+                            <span onclick="toggleEdges('G')">only G</span>
+                        </label>
+                    </div>
+                    <div class="label-right">
+                        <label>
+                            <input type="radio" name="radio">
+                            <span onclick="toggleEdges('K')">only K</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio">
+                            <span onclick="toggleEdges('T')">only T</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio">
+                            <span onclick="toggleEdges('Y')">only Y</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio">
+                            <span onclick="toggleEdges('Z')">only Z</span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+        </li>
+        <li id="noother">
+            <div class="checkbox-wrapper-11">
+              <input value="2" name="r" type="checkbox" id="02-11">
+              <label for="02-11" onclick="animation()">no-other</label>
+            </div>
+        </li>
+        <li id="noedge" style="display: none">
+            <div class="checkbox-wrapper-11">
+              <input value="3" name="e" type="checkbox" id="02-12">
+              <label for="02-12" onclick="animation()">no-edge</label>
+            </div>
+        </li>
+    </ul>
+  </div>
+
+  <div class="wrapper" id="mapdata">
+      <div id="main" style="width: 800px; height: 100%;"></div>
+      <div id="loading" class="spinner loading"></div>
+  </div>
+
+    <div class="wrapper" style="display: none" id="dashdata">
+      <div id="dashboard" class="dashboard-vue">
+          <table id="keywords" cellspacing="0" cellpadding="0">
+            <thead>
+              <tr>
+                <th><span>Metric</span></th>
+                <th><span>Before network</span></th>
+                <th><span>After network</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="lalign">Number of nodes</td>
+                <td>2719</td>
+                <td>2718</td>
+              </tr>
+              <tr>
+                <td class="lalign">Number of edges</td>
+                <td>6168</td>
+                <td>6100</td>
+              </tr>
+              <tr>
+                <td class="lalign">Network density</td>
+                <td>0.00169</td>
+                <td>0.00169</td>
+              </tr>
+              <tr>
+                <td class="lalign">Number of connected components</td>
+                <td>1</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td class="lalign">Number of nodes in the largest connected component</td>
+                <td>2719</td>
+                <td>2033</td>
+              </tr>
+              <tr>
+                <td class="lalign">K-cores</td>
+                <td>Graph with 14 nodes and 64 edges</td>
+                <td>Graph with 14 nodes and 64 edges</td>
+              </tr>
+              <tr>
+                <td class="lalign">Diameter</td>
+                <td>47</td>
+                <td>30</td>
+              </tr>
+              <tr>
+                <td class="lalign">Average distance</td>
+                <td>8.789</td>
+                <td>10.853</td>
+              </tr>
+              <tr>
+                <td class="lalign">Efficiency</td>
+                <td>0.137</td>
+                <td>0.808</td>
+              </tr>
+            </tbody>
+          </table>
+          <table id="keywords2" cellspacing="0" cellpadding="0">
+            <thead>
+              <tr>
+                <th><span>Degree-Count Relationship</span></th>
+              </tr>
+            </thead>
+          </table>
+          <table id="keywords3" cellspacing="0" cellpadding="0">
+            <div class="degree-line">
+                <div id="degree-before" style="width: 350px; height: 350px; margin: auto"></div>
+                <div id="degree-after" style="width: 350px; height: 350px; margin: auto"></div>
+            </div>
+          </table>
+          <table id="keywords4" cellspacing="0" cellpadding="0">
+            <thead>
+              <tr>
+                <th><span>Degree distribution</span></th>
+              </tr>
+            </thead>
+          </table>
+          <table id="keywords5" cellspacing="0" cellpadding="0">
+            <div class="degree-line">
+                <div id="dist-before" style="width: 350px; height: 350px; margin: auto"></div>
+                <div id="dist-after" style="width: 350px; height: 350px; margin: auto"></div>
+            </div>
+          </table>
+      </div>
+    </div>
+
+    <div class="wrapper" style="display: none" id="autodata">
+      <div id="autoevo" class="dashboard-vue">
+        <div id="auto-evolution" style="width: 790px; height: 800px;"></div>
+      </div>
+    </div>
+
+  <div class="right-menu">
+  <div id="sdmenu">
+    <div class="form floating-box">
+      <p class="title">Search route</p>
+      <label>
+          <input id="startpoint" required="" placeholder="" type="text" class="input" onclick="focusstart()">
+          <span>Start Point</span>
+      </label>
+
+        <button class="tooltip" onclick="swap()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" width="25" height="25">
+              <path fill="royalblue" d="M12,3L3.5,12h6v9h5v-9h6L12,3z"/>
+            </svg>
+
+          <span class="tooltiptext">swap</span>
+        </button>
+
+      <label>
+          <input id="endpoint" required="" placeholder="" type="text" class="input" onclick="focusend()">
+          <span>End Point</span>
+      </label>
+      <button class="cssbuttons-io-button" onclick="spath()"> Submit
+        <div class="icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
+        </div>
+      </button>
+
+      <div class="result">
+          <div class="ticket">
+            <div class="task" draggable="true">
+              <div class="tags">
+                <span class="tag" style="background-color: royalblue">Less transfer & Arrive early</span>
+              </div>
+                <p id="arrive_early">Send the source and target node to get result</p>
+              <div class="stats">
+                <div>
+                  <div>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <path stroke-linecap="round" stroke-width="2" d="M12 8V12L15 15"></path> <circle stroke-width="2" r="9" cy="12" cx="12"></circle> </g>
+                      </svg>
+                      Arrive: &nbsp<span id="arrive-time">none</span>
+                  </div>
+                  <div>
+                      <svg fill="#000000" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-2.5 0 32 32"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <g id="icomoon-ignore"> </g> <path fill="#000000" d="M0 10.284l0.505 0.36c0.089 0.064 0.92 0.621 2.604 0.621 0.27 0 0.55-0.015 0.836-0.044 3.752 4.346 6.411 7.472 7.060 8.299-1.227 2.735-1.42 5.808-0.537 8.686l0.256 0.834 7.63-7.631 8.309 8.309 0.742-0.742-8.309-8.309 7.631-7.631-0.834-0.255c-2.829-0.868-5.986-0.672-8.686 0.537-0.825-0.648-3.942-3.3-8.28-7.044 0.11-0.669 0.23-2.183-0.575-3.441l-0.352-0.549-8.001 8.001zM1.729 10.039l6.032-6.033c0.385 1.122 0.090 2.319 0.086 2.334l-0.080 0.314 0.245 0.214c7.409 6.398 8.631 7.39 8.992 7.546l-0.002 0.006 0.195 0.058 0.185-0.087c2.257-1.079 4.903-1.378 7.343-0.836l-13.482 13.481c-0.55-2.47-0.262-5.045 0.837-7.342l0.104-0.218-0.098-0.221-0.031 0.013c-0.322-0.632-1.831-2.38-7.498-8.944l-0.185-0.215-0.282 0.038c-0.338 0.045-0.668 0.069-0.981 0.069-0.595 0-1.053-0.083-1.38-0.176z"> </path> </g>
+                      </svg>
+                      Distance: &nbsp<span id="less-transfer-distance">none</span>
+                  </div>
+                </div>
+<!--                <div>-->
+<!--                    <label class="ifhidden">-->
+<!--                      <input type="checkbox" checked="checked">-->
+<!--                      <span class="checkmark"></span>-->
+<!--                    </label>-->
+<!--                </div>-->
+              </div>
+            </div>
+            <div class="task" draggable="true">
+              <div class="tags">
+                <span class="tag" style="background-color: #cc9f2b;">Self-drive shortest distance</span>
+              </div>
+                <p id="shortest_distance_path">Send the source and target node to get result</p>
+              <div class="stats">
+                <div>
+                  <div>
+                      <svg fill="#000000" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-2.5 0 32 32"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <g id="icomoon-ignore"> </g> <path fill="#000000" d="M0 10.284l0.505 0.36c0.089 0.064 0.92 0.621 2.604 0.621 0.27 0 0.55-0.015 0.836-0.044 3.752 4.346 6.411 7.472 7.060 8.299-1.227 2.735-1.42 5.808-0.537 8.686l0.256 0.834 7.63-7.631 8.309 8.309 0.742-0.742-8.309-8.309 7.631-7.631-0.834-0.255c-2.829-0.868-5.986-0.672-8.686 0.537-0.825-0.648-3.942-3.3-8.28-7.044 0.11-0.669 0.23-2.183-0.575-3.441l-0.352-0.549-8.001 8.001zM1.729 10.039l6.032-6.033c0.385 1.122 0.090 2.319 0.086 2.334l-0.080 0.314 0.245 0.214c7.409 6.398 8.631 7.39 8.992 7.546l-0.002 0.006 0.195 0.058 0.185-0.087c2.257-1.079 4.903-1.378 7.343-0.836l-13.482 13.481c-0.55-2.47-0.262-5.045 0.837-7.342l0.104-0.218-0.098-0.221-0.031 0.013c-0.322-0.632-1.831-2.38-7.498-8.944l-0.185-0.215-0.282 0.038c-0.338 0.045-0.668 0.069-0.981 0.069-0.595 0-1.053-0.083-1.38-0.176z"> </path> </g>
+                      </svg>
+                      Distance: &nbsp<span id="short-distance-distance">none</span>
+                  </div>
+                </div>
+<!--                <div>-->
+<!--                    <label class="ifhidden">-->
+<!--                      <input type="checkbox" checked="checked">-->
+<!--                      <span class="checkmark"></span>-->
+<!--                    </label>-->
+<!--                </div>-->
+              </div>
+            </div>
+            <div class="task" draggable="true">
+              <div class="tags">
+                <span class="tag" style="background-color: #af3737;">Self-drive shortest interval</span>
+              </div>
+                <p id="shortest_path">Send the source and target node to get result</p>
+              <div class="stats">
+                <div>
+                  <div>
+                      <svg fill="#000000" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-2.5 0 32 32"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <g id="icomoon-ignore"> </g> <path fill="#000000" d="M0 10.284l0.505 0.36c0.089 0.064 0.92 0.621 2.604 0.621 0.27 0 0.55-0.015 0.836-0.044 3.752 4.346 6.411 7.472 7.060 8.299-1.227 2.735-1.42 5.808-0.537 8.686l0.256 0.834 7.63-7.631 8.309 8.309 0.742-0.742-8.309-8.309 7.631-7.631-0.834-0.255c-2.829-0.868-5.986-0.672-8.686 0.537-0.825-0.648-3.942-3.3-8.28-7.044 0.11-0.669 0.23-2.183-0.575-3.441l-0.352-0.549-8.001 8.001zM1.729 10.039l6.032-6.033c0.385 1.122 0.090 2.319 0.086 2.334l-0.080 0.314 0.245 0.214c7.409 6.398 8.631 7.39 8.992 7.546l-0.002 0.006 0.195 0.058 0.185-0.087c2.257-1.079 4.903-1.378 7.343-0.836l-13.482 13.481c-0.55-2.47-0.262-5.045 0.837-7.342l0.104-0.218-0.098-0.221-0.031 0.013c-0.322-0.632-1.831-2.38-7.498-8.944l-0.185-0.215-0.282 0.038c-0.338 0.045-0.668 0.069-0.981 0.069-0.595 0-1.053-0.083-1.38-0.176z"> </path> </g>
+                      </svg>
+                      Distance: &nbsp<span id="short-interval-distance">none</span>
+                  </div>
+                </div>
+<!--                <div>-->
+<!--                    <label class="ifhidden">-->
+<!--                      <input type="checkbox" checked="checked">-->
+<!--                      <span class="checkmark"></span>-->
+<!--                    </label>-->
+<!--                </div>-->
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div id="pemenu">
+    <div class="form floating-box">
+      <p class="title">Add new node</p>
+      <label>
+          <input id="lonpoint" required="" placeholder="" type="text" class="input">
+          <span>Node Longitude</span>
+      </label>
+      <label>
+          <input id="latpoint" required="" placeholder="" type="text" class="input">
+          <span>Node Latitude</span>
+      </label>
+      <button class="cssbuttons-io-button" onclick="prededge()"> Submit
+        <div class="icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
+        </div>
+      </button>
+
+      <div class="result">
+          <div>
+            <div class="task" draggable="true" id="none-pe">
+              <div class="tags">
+                <span class="tag" style="background-color: royalblue">Result new node</span>
+              </div>
+              <div class="notepage">
+                <p>-N degree: &nbsp</p>
+                <p>-Province: &nbsp</p>
+                <p>-Province name: &nbsp</p>
+              </div>
+            </div>
+            <div class="task ticket" style="display: none" draggable="true" id="result-pe">
+              <div class="tags">
+                <span class="tag" style="background-color: royalblue">Result new node</span>
+              </div>
+              <div class="notepage">
+                <p id="pred-edge">-N degree: &nbsp</p>
+                <p id="pred-province">-Province: &nbsp</p>
+                <p id="pred-province-name">-Province name: &nbsp</p>
+                  <p id="pred-edge-info"></p>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div id="nrmenu">
+      <div class="radio-input">
+          <label>
+          <input type="radio" id="value-1" name="value-radio" value="value-1" checked onclick="showdelete()">
+          <span>Delete node</span>
+          </label>
+          <label>
+            <input type="radio" id="value-2" name="value-radio" value="value-2" onclick="showauto()">
+          <span>Auto evolution</span>
+          </label>
+          <span class="selection"></span>
+        </div>
+      <div id="nrinput" class="form floating-box">
+        <label>
+          <input id="nodepoint" required="" placeholder="" type="text" class="input">
+          <span>Node</span>
+        </label>
+          <label>
+              <input id="edgepoint" required="" placeholder="" type="text" class="input">
+              <span>Edge</span>
+          </label>
+          <button class="cssbuttons-io-button" onclick="ressub()"> Submit
+            <div class="icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
+            </div>
+          </button>
+          <button id="resmore" class="cssbuttons-io-button" onclick="resmore()"> More
+            <div class="icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
+            </div>
+          </button>
+          <button id="resless" style="display: none" class="cssbuttons-io-button" onclick="resless()"> Less
+            <div class="icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
+            </div>
+          </button>
+
+          <div class="result">
+              <div class="ticket">
+                <div class="task" draggable="true">
+                  <div class="tags">
+                    <span class="tag" style="background-color: royalblue">Result new node</span>
+                  </div>
+                  <div class="notepage">
+                      <p id="res-deg">-Degree: &nbsp 8</p>
+                      <p id="res-clu">-Clustering: &nbsp 0.8</p>
+                      <p id="res-dce">-Degree centrality: &nbsp 0.002</p>
+                      <p id="res-bce">-Betweenness centrality: &nbsp 2.976×10^(-6)</p>
+                      <p id="res-cce">-Closeness centrality: &nbsp 0.13</p>
+                      <p id="res-ece">-Eigenvector centrality: &nbsp 6.68×10^(-3)</p>
+                      <p id="res-cco">-Clustering coefficient: &nbsp 0.39</p>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      <div id="nrmenuhidden">
+      <div class="form floating-box">
+          <div class="result">
+              <div>
+                <div class="task" draggable="true">
+                  <div class="tags">
+                    <span class="tag" style="background-color: royalblue">Note</span>
+                  </div>
+                  <div class="notepage">
+                      <text>The Automatic evolution module can see the attack by random or degree ,betweenness, k-core , closeness centrality
+</text>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+  </div>
+      </div>
+
+      <div id="clmenu">
+          <div class="radio-input" id="nodecluster">
+              <label>
+              <input type="radio" id="value-3" name="value-radio2" value="value-3" checked onclick="shownet()">
+              <span>Network</span>
+              </label>
+              <label>
+                <input type="radio" id="value-4" name="value-radio2" value="value-4" onclick="showpro()">
+              <span>Province</span>
+              </label>
+              <span class="selection"></span>
+            </div>
+          <div class="form floating-box" id="edgecluster" style="display: none">
+              <p class="title">Network</p>
+          </div>
+        <div class="container">
+                <form>
+                    <div id="nodeform" class="clustertype">
+                        <label>
+                            <input type="radio" name="radio2">
+                            <span onclick="cltype(0)">Province(Classification)</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio2">
+                            <span onclick="cltype(1)">Degree</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio2" checked>
+                            <span onclick="cltype(2)">Degree_Centrality</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio2">
+                            <span onclick="cltype(3)">Cluster_Coefficients</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio2">
+                            <span onclick="cltype(4)">Closeness_Centrality</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio2">
+                            <span onclick="cltype(5)">Betweenness_Centrality</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio2">
+                            <span onclick="cltype(6)">Eigenvector_Centrality</span>
+                        </label>
+                    </div>
+                    <div id="edgeform" class="clustertype" style="display: none">
+                        <label>
+                            <input type="radio" name="radio3" checked>
+                            <span onclick="cltype(7)">Train_No(Classification)</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio3">
+                            <span onclick="cltype(8)">Train_Speed</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio3">
+                            <span onclick="cltype(9)">Train_Across</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio3">
+                            <span onclick="cltype(10)">Route_Distance</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="radio3">
+                            <span onclick="cltype(11)">Route_Overnight(Classification)</span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+        <div id="clinput" class="form floating-box">
+        <label>
+          <input id="minclu" required="" placeholder="" type="text" class="input">
+          <span>Min</span>
+        </label>
+          <label>
+              <input id="maxclu" required="" placeholder="" type="text" class="input">
+              <span>Max</span>
+          </label>
+          <button class="cssbuttons-io-button" onclick="clusub()"> Submit
+            <div class="icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
+            </div>
+          </button>
+          <button class="cssbuttons-io-button" onclick="clureset()"> Reset
+            <div class="icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
+            </div>
+          </button>
+        </div>
+      </div>
+      <div id="hemenu">
+          <div class="form floating-box">
+      <button class="cssbuttons-io-button" onclick="showhidden()"> Show hidden edges
+        <div class="icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
+        </div>
+      </button>
+
+      <div class="result">
+          <div>
+            <div class="task" draggable="true">
+              <div class="tags">
+                <span class="tag" style="background-color: royalblue">Result new node</span>
+              </div>
+              <div class="notepage">
+                -Number of hidden edges: &nbsp<p id="hidden-edges">124</p>
+                -... &nbsp<p id="hidden-others"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+ </p>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+      </div>
+</div>
+</div>
+
+
+<span class="sub-title" id="subtitle">
+    <h1 id="lefttop">Shortest Path</h1>
+</span>
+
+<div class="radio-input" id="dataset">
+  <label>
+  <input type="radio" id="value-5" name="value-radio3" value="value-3" checked onclick="shownodecluster()">
+  <span>Chinese Railway</span>
+  </label>
+  <label>
+    <input type="radio" id="value-6" name="value-radio3" value="value-4" onclick="showedgecluster()">
+  <span>Paris Route</span>
+  </label>
+  <span class="selection"></span>
+</div>
+
+<div id="clustertype" style="display: none">
+    <label class="radio-button" onclick="cluster_node()">
+      <input value="option1" name="example-radio" type="radio" checked>
+      <span class="radio-cluster"></span>
+      Node
+    </label>
+
+    <label class="radio-button" onclick="cluster_edge()">
+      <input value="option2" name="example-radio" type="radio">
+      <span class="radio-cluster"></span>
+      Edge
+    </label>
+
+</div>
+
+</body>
+</html>
+
+<script src="assets/js/jquery-3.1.1.min.js"></script>
+<script src="assets/js/axios.min.js"></script>
+<script src="assets/js/echarts.min.js"></script>
+<script src="assets/js/echarts-gl.min.js"></script>
+
+<script src="assets/js/dataTool.min.js"></script>
+<script src="assets/js/china.js"></script>
+<script src="assets/js/world.js"></script>
+
+<script src="assets/js/map.js"></script>
+<script src="assets/js/view.js"></script>
+<script src="assets/js/checkTrain.js"></script>
+<script src="assets/js/route.js"></script>
+<script src="assets/js/menu.js"></script>
+<script src="assets/js/resilience.js"></script>

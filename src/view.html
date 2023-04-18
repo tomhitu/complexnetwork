@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟布局</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            grid-gap: 10px;
+            width: 600px;
+            height: 600px;
+        }
+        .box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #333;
+            background-color: #f3f3f3;
+            padding: 20px;
+            text-align: center;
+        }
+        .center-box {
+            grid-column: 2;
+            grid-row: 2;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box" onclick="showContent('Box 1')">Box 1</div>
+        <div class="box" onclick="showContent('Box 2')">Box 2</div>
+        <div class="box" onclick="showContent('Box 3')">Box 3</div>
+        <div class="box" onclick="showContent('Box 4')">Box 4</div>
+        <div class="box center-box" id="centerBox">点击其他方框以显示内容</div>
+        <div class="box" onclick="showContent('Box 5')">Box 5</div>
+        <div class="box" onclick="showContent('Box 6')">Box 6</div>
+        <div class="box" onclick="showContent('Box 7')">Box 7</div>
+        <div class="box" onclick="showContent('Box 8')">Box 8</div>
+    </div>
+    <script>
+        function showContent(content) {
+            document.getElementById('centerBox').innerHTML = content;
+        }
+    </script>
+</body>
+</html>
