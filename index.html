@@ -150,7 +150,8 @@
 
   <div class="wrapper" id="mapdata">
       <div id="main" style="width: 800px; height: 100%;"></div>
-      <div id="loading" class="spinner loading"></div>
+<!--      <div id="paris" style="width: 800px; height: 100%;"></div>-->
+<!--      <div id="loading" class="spinner loading"></div>-->
   </div>
 
     <div class="wrapper" style="display: none" id="dashdata">
@@ -247,7 +248,7 @@
     </div>
 
   <div class="right-menu">
-  <div id="sdmenu">
+  <div id="sdmenu" class="ticket">
     <div class="form floating-box">
       <p class="title">Search route</p>
       <label>
@@ -274,7 +275,7 @@
       </button>
 
       <div class="result">
-          <div class="ticket">
+          <div>
             <div class="task" draggable="true">
               <div class="tags">
                 <span class="tag" style="background-color: royalblue">Less transfer & Arrive early</span>
@@ -347,7 +348,7 @@
       </div>
     </div>
   </div>
-  <div id="pemenu">
+  <div id="pemenu" class="ticket">
     <div class="form floating-box">
       <p class="title">Add new node</p>
       <label>
@@ -376,7 +377,7 @@
                 <p>-Province name: &nbsp</p>
               </div>
             </div>
-            <div class="task ticket" style="display: none" draggable="true" id="result-pe">
+            <div class="task" style="display: none" draggable="true" id="result-pe">
               <div class="tags">
                 <span class="tag" style="background-color: royalblue">Result new node</span>
               </div>
@@ -391,7 +392,7 @@
       </div>
     </div>
   </div>
-  <div id="nrmenu">
+  <div id="nrmenu" class="ticket">
       <div class="radio-input">
           <label>
           <input type="radio" id="value-1" name="value-radio" value="value-1" checked onclick="showdelete()">
@@ -429,7 +430,7 @@
           </button>
 
           <div class="result">
-              <div class="ticket">
+              <div>
                 <div class="task" draggable="true">
                   <div class="tags">
                     <span class="tag" style="background-color: royalblue">Result new node</span>
@@ -448,7 +449,7 @@
           </div>
         </div>
       <div id="nrmenuhidden">
-      <div class="form floating-box">
+        <div class="form floating-box">
           <div class="result">
               <div>
                 <div class="task" draggable="true">
@@ -463,10 +464,9 @@
               </div>
           </div>
         </div>
+        </div>
   </div>
-      </div>
-
-      <div id="clmenu">
+  <div id="clmenu">
           <div class="radio-input" id="nodecluster">
               <label>
               <input type="radio" id="value-3" name="value-radio2" value="value-3" checked onclick="shownet()">
@@ -558,7 +558,7 @@
           </button>
         </div>
       </div>
-      <div id="hemenu">
+  <div id="hemenu">
           <div class="form floating-box">
       <button class="cssbuttons-io-button" onclick="showhidden()"> Show hidden edges
         <div class="icon">
@@ -628,6 +628,7 @@
 <script src="./src/assets/js/dataTool.min.js"></script>
 <script src="./src/assets/js/china.js"></script>
 <script src="./src/assets/js/world.js"></script>
+<script src="./src/assets/js/France.js"></script>
 
 <script src="./src/assets/js/map.js"></script>
 <script src="./src/assets/js/view.js"></script>
@@ -635,3 +636,5 @@
 <script src="./src/assets/js/route.js"></script>
 <script src="./src/assets/js/menu.js"></script>
 <script src="./src/assets/js/resilience.js"></script>
+
+<!--<script src="./src/assets/js2/map2.js"></script>-->

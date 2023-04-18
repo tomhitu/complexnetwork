@@ -21,16 +21,18 @@ let tcolor = {
   'Y': 'rgb(0, 255, 0)'
 };
 
+/*
 // show loading
 setTimeout(() => {
   // hidden loading
   const loading = document.getElementById("loading");
   loading.style.display = "none";
 }, 3000); // suppose loading time is 3s
+*/
 
 myChart.showLoading();
 $(document).ready(function() {
-  axios.get('https://tomhitu.pythonanywhere.com/map_generate?type=map')
+  axios.get('http://tomhitu.pythonanywhere.com/map_generate?type=map')
           .then(function (response) {
             myChart.hideLoading();
             let data = response.data;
@@ -39,7 +41,7 @@ $(document).ready(function() {
             myChart.setOption(
                     option = {
                       geo3D: {
-                        map: "china",
+                        map: "world",
                         boxWidth: 100,
                         boxHeight: 10,
                         boxDepth: 100,
@@ -76,7 +78,7 @@ $(document).ready(function() {
                           animation: true,
                           animationDurationUpdate: 100,
                           animationEasingUpdate: 'cubicInOut',
-                          minDistance: 10,
+                          minDistance: 0,
                           maxDistance: 140,
                           alpha: 35,
                         },

@@ -8,7 +8,7 @@ function swap(){
 function spath(){
     let start_node = document.getElementById("startpoint").value;
     let end_node = document.getElementById("endpoint").value;
-    axios.post('https://tomhitu.pythonanywhere.com/shortest_path', {
+    axios.post('http://tomhitu.pythonanywhere.com/shortest_path', {
         startnode: start_node,
         endnode: end_node
     })
@@ -49,24 +49,4 @@ function stime() {
 
 function stransfer() {
     alert('waiting');
-}
-
-
-function jump(){
-    var search_keyword=document.getElementById("search-word").value;
-    axios.post('https://tomhitu.pythonanywhere.com/data_generate', {
-        search: search_keyword
-    })
-    .then(function (response) {
-        var status = response.data.status;
-        alert(status)
-        if (status == 'success') {
-            window.location.href = 'result.html'
-        } else {
-            alert("Error!")
-        }
-    })
-    .catch(function (error) {
-        alert("Error!");
-    });
 }

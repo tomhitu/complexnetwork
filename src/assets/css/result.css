@@ -4,9 +4,9 @@
 }
 
 .ticket {
-    display: flex;
+    display: block;
     flex-direction: column;
-    height: 25em;
+    height: 53em;
     overflow-y: scroll;
     -ms-overflow-style: initial;
 }
