@@ -7,6 +7,10 @@ let cluster_type = ['state_num', 'cluster_degree', 'cluster_Degree_Centrality', 
 let cluster_state_type = ['stat_num', 'cluster_state_degree', 'cluster_state_Degree_Centrality', 'cluster_state_Clustering_Coefficients', 'cluster_state_Closeness_Centrality', 'cluster_state_Betweenness_Centrality', 'cluster_state_Eigenvector_Centrality']
 let cluster_edge_type = ['train', 'cluster_speed', 'cluster_across', 'cluster_overnight', 'cluster_distance']
 
+let paris_cluster_type = ['cluster_lat_lon', 'cluster_degree', 'cluster_Degree_Centrality', 'cluster_Clustering_Coefficients', 'cluster_Closeness_Centrality', 'cluster_Betweenness_Centrality', 'cluster_Eigenvector_Centrality']
+let paris_cluster_edge_type = ['cluster_type', 'cluster_across', 'cluster_distance']
+
+
 function getRandomColor(existingColors) {
   var r = Math.floor(Math.random() * 256);
   var g = Math.floor(Math.random() * 256);
@@ -142,6 +146,7 @@ function showtype(isshow, num) {
         cluster.style.display = 'flex';
         ifrun = true;
         cltype(3);
+        pariscltype(0);
         break;
       case 4:
         lefttop.innerHTML = 'Hidden Edge';
@@ -187,6 +192,14 @@ function showtype(isshow, num) {
 function animation() {
   ifrun = !ifrun;
   myChart.setOption({
+    series: [{
+      name: "Edges",
+      effect: {
+        show: ifrun
+      }
+    }]
+  })
+  myChart2.setOption({
     series: [{
       name: "Edges",
       effect: {
@@ -595,6 +608,67 @@ function clusternodes(param) {
     myChart.setOption(predOption);
 }
 
+// show the cluster of nodes on map2
+function clusterparisenodes(param) {
+  myChart2.setOption({
+    series: [
+      {
+        name: "Nodes",
+        type: "scatter3D",
+        coordinateSystem: "geo3D",
+        symbolSize: 8,
+        itemStyle: {
+          z: 1
+        },
+        emphasis: { // hover node color
+          itemStyle: {
+            color: 'rgba(0, 255, 0, 1)' // 绿色
+          },
+          label: {
+            show: true,
+            formatter: function(params) {
+              return params.name;
+            },
+            textStyle: {
+              color: '#000',
+            }
+          },
+        },
+        data: datalocal2.nodes.map(function (node) {
+          const type = param
+          const color = colorslist[node[type]];
+          return {
+            name: node.name,
+            value: node.value,
+            itemStyle: {
+              color: color,
+              opacity: 0.5,
+            }
+          }
+        }),
+      },
+      {
+        name: "Edges",
+        type: "lines3D",
+        data: datalocal2.edges.map(function (e) {
+          return {
+            coords: [e.value[0], e.value[1]],
+            lineStyle: {
+              opacity: 0,
+            }
+          };
+        }),
+      }
+    ]});
+  let tmoption = myChart2.getOption();
+  let predSeries = tmoption.series.slice(0, 2); // only keep the initial option
+  let predOption = {
+    ...tmoption,
+    series: predSeries,
+  };
+  myChart2.setOption(predOption);
+}
+
 // if meet limitation, show the cluster of nodes on map
 function ifmeetlimit(num, min, max) {
   if (num >= min && num <= max) {
@@ -604,33 +678,34 @@ function ifmeetlimit(num, min, max) {
 }
 
 // show the cluster of nodes on map with limitation
-function setlimit(min, max) {
-  if (clustertype <= 6) {
-    myChart.setOption({
-      series: [
-        {
-          name: "Nodes",
-          type: "scatter3D",
-          data: datalocal.nodes.map(function (node) {
-            const type = netorpro === 0 ? cluster_type[clustertype] : cluster_state_type[clustertype];
-            const color = colorslist[node[type]];
-            const opacity = ifmeetlimit(node[type], min, max) ? 0.5 : 0;
-            return {
+function setlimit(min, max, type) {
+  if (type === 0) {
+    if (clustertype <= 6) {
+      myChart.setOption({
+        series: [
+          {
+            name: "Nodes",
+            type: "scatter3D",
+            data: datalocal.nodes.map(function (node) {
+              const type = netorpro === 0 ? cluster_type[clustertype] : cluster_state_type[clustertype];
+              const color = colorslist[node[type]];
+              const opacity = ifmeetlimit(node[type], min, max) ? 0.5 : 0;
+              return {
                 name: node.name,
                 value: node.value,
                 itemStyle: {
                   color: color,
                   opacity: opacity,
                 }
-            }
-          }),
-        }
-      ]
-    });
-  }
-  else {
-    myChart.setOption({
-      series: [
+              }
+            }),
+          }
+        ]
+      });
+    }
+    else {
+      myChart.setOption({
+        series: [
           {
             name: "Edges",
             type: "lines3D",
@@ -655,17 +730,73 @@ function setlimit(min, max) {
                 }
               };
             }),
-        }
-      ]
-    });
-  }
-  let tmoption = myChart.getOption();
-  let predSeries = tmoption.series.slice(0, 2); // only keep the initial option
-  let predOption = {
-    ...tmoption,
-    series: predSeries,
-  };
+          }
+        ]
+      });
+    }
+    let tmoption = myChart.getOption();
+    let predSeries = tmoption.series.slice(0, 2); // only keep the initial option
+    let predOption = {
+      ...tmoption,
+      series: predSeries,
+    };
     myChart.setOption(predOption);
+  }
+  else {
+    if (parisclustertype <= 6) {
+      myChart2.setOption({
+        series: [
+          {
+            name: "Nodes",
+            type: "scatter3D",
+            data: datalocal2.nodes.map(function (node) {
+              const type = paris_cluster_type[parisclustertype];
+              const color = colorslist[node[type]];
+              const opacity = ifmeetlimit(node[type], min, max) ? 0.5 : 0;
+              return {
+                name: node.name,
+                value: node.value,
+                itemStyle: {
+                  color: color,
+                  opacity: opacity,
+                }
+              }
+            }),
+          }
+        ]
+      });
+    }
+    else {
+      myChart2.setOption({
+        series: [
+          {
+            name: "Edges",
+            type: "lines3D",
+            data: datalocal.edges.map(function (e) {
+              const type = paris_cluster_edge_type[parisclustertype - 7];
+              let color, opacity;
+              color = colorslist[e[type]];
+              opacity = ifmeetlimit(e[type], min, max) ? 0.5 : 0;
+              return {
+                coords: [e[0], e[1]],
+                lineStyle: {
+                  color: color,
+                  opacity: opacity,
+                }
+              };
+            }),
+          }
+        ]
+      });
+    }
+    let tmoption = myChart2.getOption();
+    let predSeries = tmoption.series.slice(0, 2); // only keep the initial option
+    let predOption = {
+      ...tmoption,
+      series: predSeries,
+    };
+    myChart2.setOption(predOption);
+  }
 }
 
 // reset the cluster
@@ -780,6 +911,50 @@ function clusteredges(param) {
     series: predSeries,
   };
     myChart.setOption(predOption);
+}
+
+function clusterpariseedges(param) {
+  myChart2.setOption({
+    series: [
+      {
+        name: "Nodes",
+        type: "scatter3D",
+        coordinateSystem: "geo3D",
+        symbolSize: 8,
+        data: datalocal2.nodes.map(function (node) {
+          return {
+            name: node.name,
+            value: node.value,
+            itemStyle: {
+              color: 'royalblue',
+              opacity: 0,
+            }
+          }
+        }),
+      },
+      {
+        name: "Edges",
+        type: "lines3D",
+        data: datalocal2.edges.map(function (e) {
+          const type = param;
+          let color = colorslist[e[type]];
+          return {
+            coords: [e.value[0], e.value[1]],
+            lineStyle: {
+              color: color,
+              opacity: 0.5,
+            }
+          };
+        }),
+      }
+    ]});
+  let tmoption = myChart2.getOption();
+  let predSeries = tmoption.series.slice(0, 2); // only keep the initial option
+  let predOption = {
+    ...tmoption,
+    series: predSeries,
+  };
+  myChart2.setOption(predOption);
 }
 
 function hiddendelnode(nodeid){

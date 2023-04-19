@@ -476,7 +476,7 @@
           <div class="form floating-box" id="edgecluster" style="display: none">
               <p class="title">Network</p>
           </div>
-        <div class="container">
+        <div id="clusterchina" class="container">
                 <form>
                     <div id="nodeform" class="clustertype">
                         <label>
@@ -532,6 +532,55 @@
                     </div>
                 </form>
             </div>
+
+      <div id="clusterparis" style="display: none" class="container">
+          <form>
+              <div id="node2form" class="clustertype">
+                  <label>
+                      <input type="radio" name="radio8" checked>
+                      <span onclick="pariscltype(0)">Lat-lon</span>
+                  </label>
+                  <label>
+                      <input type="radio" name="radio8">
+                      <span onclick="pariscltype(1)">Degree</span>
+                  </label>
+                  <label>
+                      <input type="radio" name="radio8">
+                      <span onclick="pariscltype(2)">Degree_Centrality</span>
+                  </label>
+                  <label>
+                      <input type="radio" name="radio8">
+                      <span onclick="pariscltype(3)">Cluster_Coefficients</span>
+                  </label>
+                  <label>
+                      <input type="radio" name="radio8">
+                      <span onclick="pariscltype(4)">Closeness_Centrality</span>
+                  </label>
+                  <label>
+                      <input type="radio" name="radio8">
+                      <span onclick="pariscltype(5)">Betweenness_Centrality</span>
+                  </label>
+                  <label>
+                      <input type="radio" name="radio8">
+                      <span onclick="pariscltype(6)">Eigenvector_Centrality</span>
+                  </label>
+              </div>
+              <div id="edge2form" class="clustertype" style="display: none">
+                  <label>
+                      <input type="radio" name="radio9" checked>
+                      <span onclick="pariscltype(7)">Route_Type(Classification)</span>
+                  </label>
+                  <label>
+                      <input type="radio" name="radio9">
+                      <span onclick="pariscltype(8)">Type_Across(Classification)</span>
+                  </label>
+                  <label>
+                      <input type="radio" name="radio9">
+                      <span onclick="pariscltype(9)">Route_Distance</span>
+                  </label>
+              </div>
+          </form>
+      </div>
         <div id="clinput" class="form floating-box">
         <label>
           <input id="minclu" required="" placeholder="" type="text" class="input">

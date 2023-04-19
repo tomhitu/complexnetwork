@@ -17,6 +17,7 @@ let nonepe = document.getElementById("none-pe");
 let resultpe = document.getElementById("result-pe");
 
 let clustertype = 2;
+let parisclustertype = 0;
 let netorpro = 0;
 
 function showdelete() {
@@ -269,6 +270,52 @@ function cltype(params) {
             break;
     }
 }
+function pariscltype(params) {
+    switch (params) {
+        case 0:
+            parisclustertype = 0;
+            clusterparisenodes('cluster_lat_lon')
+            break;
+        case 1:
+            parisclustertype = 1;
+            clusterparisenodes('cluster_degree')
+            break;
+        case 2:
+            parisclustertype = 2;
+            clusterparisenodes('cluster_Degree_Centrality')
+            break;
+        case 3:
+            parisclustertype = 3;
+            clusterparisenodes('cluster_Clustering_Coefficients')
+            break;
+        case 4:
+            parisclustertype = 4;
+            clusterparisenodes('cluster_Closeness_Centrality')
+            break;
+        case 5:
+            parisclustertype = 5;
+            clusterparisenodes('cluster_Betweenness_Centrality')
+            break;
+        case 6:
+            parisclustertype = 6;
+            clusterparisenodes('cluster_Eigenvector_Centrality')
+            break;
+        case 7:
+            parisclustertype = 7;
+            clusterpariseedges('cluster_type');
+            break;
+        case 8:
+            parisclustertype = 8;
+            clusterpariseedges('cluster_across');
+            break;
+        case 9:
+            parisclustertype = 9;
+            clusterpariseedges('cluster_distance');
+            break;
+        default:
+            break;
+    }
+}
 
 function clusub() {
     let min_clu = document.getElementById("minclu").value;
@@ -279,7 +326,7 @@ function clusub() {
         alert("Invalid input!");
     }
     else {
-        setlimit(min_clu, max_node);
+        setlimit(min_clu, max_node, oneortwo);
     }
 }
 
@@ -302,19 +349,27 @@ function showpro() {
 function cluster_node() {
     document.getElementById("nodeform").style.display = 'flex';
     document.getElementById("edgeform").style.display = 'none';
+    document.getElementById("node2form").style.display = 'flex';
+    document.getElementById("edge2form").style.display = 'none';
     document.getElementById("nodecluster").style.display = 'flex';
     document.getElementById("edgecluster").style.display = 'none';
     clustertype = 2;
+    parisclustertype = 0;
     cltype(clustertype);
+    pariscltype(parisclustertype);
 }
 
 function cluster_edge() {
     document.getElementById("nodeform").style.display = 'none';
     document.getElementById("edgeform").style.display = 'flex';
+    document.getElementById("node2form").style.display = 'none';
+    document.getElementById("edge2form").style.display = 'flex';
     document.getElementById("nodecluster").style.display = 'none';
     document.getElementById("edgecluster").style.display = 'flex';
     clustertype = 7;
+    parisclustertype = 7;
     cltype(clustertype);
+    pariscltype(parisclustertype);
 }
 
 function shownodecluster() {
@@ -329,6 +384,11 @@ function shownodecluster() {
     debeChart.setOption(optionbefore);
     distbChart.setOption(opdistbefore)
 
+    let clunodework = document.getElementById('nodecluster');
+    let cluedgework = document.getElementById('edgecluster');
+    clunodework.style.display = 'none';
+    cluedgework.style.display = 'none';
+
     let resultdom = document.getElementById('nrresult')
     resultdom.innerHTML = `<p>-Number of nodes: 2719</p>
     <p>-Number of edges: 6168</p>
@@ -339,6 +399,17 @@ function shownodecluster() {
     <p>-Diameter: 47</p>
     <p>-Average shortest path length: 8.789288902853249</p>
     <p>-Efficiency: 0.13798191658642248</p>`
+
+    let clusterbut = document.getElementById('clusterchina');
+    let clusterparisbut = document.getElementById('clusterparis');
+    if (clustertype < 7) {
+        clusterbut.style.display = 'flex';
+        clusterparisbut.style.display = 'none';
+    }
+    else {
+        clusterbut.style.display = 'none';
+        clusterparisbut.style.display = 'flex';
+    }
 }
 
 function showedgecluster() {
@@ -349,6 +420,11 @@ function showedgecluster() {
     var center = updatedOption.geo3D[0].center;
     var distance = updatedOption.geo3D[0].viewControl.distance;
     var alpha = updatedOption.geo3D[0].viewControl.alpha;
+
+    let clunodework = document.getElementById('nodecluster');
+    let cluedgework = document.getElementById('edgecluster');
+    clunodework.style.display = 'none';
+    cluedgework.style.display = 'none';
 
     oneortwo = 1;
 
@@ -376,4 +452,9 @@ function showedgecluster() {
     console.log('Center:', center);
     console.log('distance:', distance);
     console.log('Alpha:', alpha);
+
+    let clusterbut = document.getElementById('clusterchina');
+    let clusterparisbut = document.getElementById('clusterparis');
+    clusterbut.style.display = 'none';
+    clusterparisbut.style.display = 'flex';
 }
