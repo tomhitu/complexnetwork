@@ -146,7 +146,18 @@ function showhidden() {
 }
 
 function ressub() {
-
+    let node_index = document.getElementById("nodepoint").value;
+    axios.post('https://tomhitu.pythonanywhere.com/delete_nodes', {
+        nodeid: node_index,
+        type: oneortwo
+    }).then(function (response) {
+        console.log(response)
+        let status = response.data.status;
+        let beforedel = response.data.beforedel;
+        let afterdel = response.data.afterdel;
+        showdeletenetwork(beforedel, afterdel);
+    })
+    hiddendelnode(parseInt(node_index));
 }
 
 function changewrapper(res) {
@@ -309,9 +320,60 @@ function cluster_edge() {
 function shownodecluster() {
     chartDom.style.display = 'block';
     chartDom2.style.display = 'none';
+    oneortwo = 0;
+    let typetrain = document.getElementById('typeoftrian');
+    if (shortesttype === 0) {
+        typetrain.style.display = 'block';
+    }
+    autoChart.setOption(opauto);
+    debeChart.setOption(optionbefore);
+    distbChart.setOption(opdistbefore)
+
+    let resultdom = document.getElementById('nrresult')
+    resultdom.innerHTML = `<p>-Number of nodes: 2719</p>
+    <p>-Number of edges: 6168</p>
+    <p>-Number of connected components: 1</p>
+    <p>-Size of the largest connected component: 2719</p>
+    <p>-k-core: Graph with 14 nodes and 64 edges</p>
+    <p>-Network density: 0.0016692281524745738</p>
+    <p>-Diameter: 47</p>
+    <p>-Average shortest path length: 8.789288902853249</p>
+    <p>-Efficiency: 0.13798191658642248</p>`
 }
 
 function showedgecluster() {
     chartDom.style.display = 'none';
     chartDom2.style.display = 'block';
+    var updatedOption = myChart2.getOption();
+    var zoom = updatedOption.geo3D[0].zoom;
+    var center = updatedOption.geo3D[0].center;
+    var distance = updatedOption.geo3D[0].viewControl.distance;
+    var alpha = updatedOption.geo3D[0].viewControl.alpha;
+
+    oneortwo = 1;
+
+    let typetrain = document.getElementById('typeoftrian');
+    typetrain.style.display = 'none'
+
+    autoChart.setOption(opauto2);
+    debeChart.setOption(optionafter);
+    distbChart.setOption(opdistafter)
+
+
+    let resultdom = document.getElementById('nrresult')
+    resultdom.innerHTML = `<p>-Number of nodes: 42057</p>
+                        <p>-Number of edges: 27181</p>
+                        <p>-Number of connected components: 14876</p>
+                        <p>-Size of the largest connected component: 11</p>
+                        <p>-Number of edges in the largest connected component: 11</p>
+                        <p>-k-core of the largest connected component: Graph with 11 nodes and 10 edges</p>
+                        <p>-Network density of the largest connected component: 0.18181818181818182</p>
+                        <p>-Diameter of the largest connected component: 2</p>
+                        <p>-Average shortest path length of the largest connected component: 1.8181818181818181</p>
+                        <p>-Efficiency of the largest connected component: 0.5909090909090909</p>`
+
+    console.log('Zoom:', zoom);
+    console.log('Center:', center);
+    console.log('distance:', distance);
+    console.log('Alpha:', alpha);
 }

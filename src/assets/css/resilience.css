@@ -219,7 +219,7 @@ table { border-collapse: collapse; border-spacing: 0; }
   padding: 12px 30px 12px 42px;
 }
 
-#degree-before, #degree-after {
+#degree-before, #dist-before{
   width: 100%;
   display: flex;
   justify-content: center;

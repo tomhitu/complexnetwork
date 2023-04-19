@@ -43,10 +43,17 @@ function showtype(isshow, num) {
   let hemenu = document.getElementById('hemenu');
   let cluster = document.getElementById('clustertype');
   if (isshow) {
-    typetrain.style.display = 'block';
+    shortesttype = 0;
+    if (oneortwo === 0) {
+      typetrain.style.display = 'block';
+    }
+    else {
+      typetrain.style.display = 'none';
+    }
     noother.style.display = 'block';
     noedge.style.display = 'none';
   } else {
+    shortesttype = 1;
     typetrain.style.display = 'none';
     noother.style.display = 'none';
   }
@@ -119,6 +126,7 @@ function showtype(isshow, num) {
         hemenu.style.display = 'none';
         noedge.style.display = 'none';
         cluster.style.display = 'none';
+        noother.style.display = 'block';
         break;
       case 3:
         lefttop.innerHTML = 'Clustering';
@@ -509,8 +517,9 @@ function showhidedges(hiddennodes, hiddenedges) {
             z: 2
           },
           data: hiddenedges.map(function (e) {
-            const sourceNode = datalocal.nodes.find((node) => node.name === e.source);
-            const targetNode = datalocal.nodes.find((node) => node.name === e.target);
+            console.log(e);
+            const sourceNode = datalocal.nodes.find((node) => node.name === e[0]);
+            const targetNode = datalocal.nodes.find((node) => node.name === e[1]);
             return {
               coords: [sourceNode.value, targetNode.value],
               lineStyle: {
@@ -771,4 +780,87 @@ function clusteredges(param) {
     series: predSeries,
   };
     myChart.setOption(predOption);
+}
+
+function hiddendelnode(nodeid){
+  myChart.setOption({
+    series: [
+      {
+        name: "Nodes",
+        type: "scatter3D",
+        coordinateSystem: "geo3D",
+        symbolSize: 8,
+        itemStyle: {
+          z: 1
+        },
+        emphasis: { // hover node color
+          itemStyle: {
+            color: 'rgba(0, 255, 0, 1)' // 绿色
+          },
+          label: {
+            show: true,
+            formatter: function(params) {
+              return params.name;
+            },
+            textStyle: {
+              color: '#000',
+            }
+          },
+        },
+        data: datalocal.nodes.map(function (node) {
+          const ifin = node.name === nodeid;
+          const color = ifin ? 'grey' : 'royalblue';
+          const opcity = ifin ? 0 : 0.8;
+          return {
+            name: node.name,
+            value: node.value,
+            itemStyle: {
+              color: color,
+              opacity: opcity,
+            }
+          }
+        }),
+      },
+      {
+        name: "Edges",
+        type: "lines3D",
+        coordinateSystem: "geo3D",
+        effect: {
+          show: ifrun,
+          trailWidth: 1,
+          trailOpacity: 0.5,
+          trailLength: 0.2,
+          constantSpeed: 5,
+        },
+        blendMode: "lighter",
+        lineStyle: {
+          curveness: 0.3,
+          width: 1,
+          z: 2
+        },
+        data: datalocal.edges.map(function (e) {
+          const sourceNode = datalocal.nodes.find((node) => node.name === e.source);
+          const targetNode = datalocal.nodes.find((node) => node.name === e.target);
+          const ifdel = sourceNode.name === nodeid || targetNode.name === nodeid;
+          const color = ifdel ? 'grey': '#fff000';
+          const opacity = ifdel ? 0 : 0.5;
+
+          return {
+            coords: [sourceNode.value, targetNode.value],
+            lineStyle: {
+              color: color,
+              opacity: opacity,
+            }
+          };
+        }),
+      },
+    ],
+  })
+  let tmoption = myChart.getOption();
+  let predSeries = tmoption.series.slice(0, 2); // only keep the initial option
+  let predOption = {
+    ...tmoption,
+    series: predSeries,
+  };
+  myChart.setOption(predOption);
 }

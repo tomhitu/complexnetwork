@@ -101,6 +101,7 @@ myChart.on('click', function (params) {
         else {
             document.getElementById("endpoint").value = value;
         }
+        document.getElementById("nodepoint").value = value;
     }
 });
 

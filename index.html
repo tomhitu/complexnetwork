@@ -166,48 +166,53 @@
             <tbody>
               <tr>
                 <td class="lalign">Number of nodes</td>
-                <td>2719</td>
-                <td>2718</td>
+                <td id="nodesnumbefore"></td>
+                <td id="nodesnumafter"></td>
               </tr>
               <tr>
                 <td class="lalign">Number of edges</td>
-                <td>6168</td>
-                <td>6100</td>
+                <td id="edgesnumbefore"></td>
+                <td id="edgesnumafter"></td>
+              </tr>
+              <tr>
+                  <td class="lalign">Number of connected components</td>
+                  <td id="concombefore"></td>
+                  <td id="concomafter"></td>
+              </tr>
+              <tr>
+                  <td class="lalign">Number of nodes in the largest connected component</td>
+                  <td id="largestbefore"></td>
+                  <td id="largestafter"></td>
+              </tr>
+              <tr>
+                  <td class="lalign">Number of edges in the largest connected component</td>
+                  <td id="largestedgesbefore"></td>
+                  <td id="largestedgesafter"></td>
+              </tr>
+              <tr>
+                  <td class="lalign">K-cores</td>
+                  <td id="kcoresbefore"></td>
+                  <td id="kcoresafter"></td>
               </tr>
               <tr>
                 <td class="lalign">Network density</td>
-                <td>0.00169</td>
-                <td>0.00169</td>
-              </tr>
-              <tr>
-                <td class="lalign">Number of connected components</td>
-                <td>1</td>
-                <td>1</td>
-              </tr>
-              <tr>
-                <td class="lalign">Number of nodes in the largest connected component</td>
-                <td>2719</td>
-                <td>2033</td>
-              </tr>
-              <tr>
-                <td class="lalign">K-cores</td>
-                <td>Graph with 14 nodes and 64 edges</td>
-                <td>Graph with 14 nodes and 64 edges</td>
+                <td id="densitybefore"></td>
+                <td id="densityafter"></td>
               </tr>
               <tr>
                 <td class="lalign">Diameter</td>
-                <td>47</td>
-                <td>30</td>
+                <td id="diameterbefore"></td>
+                <td id="diameterafter"></td>
               </tr>
               <tr>
                 <td class="lalign">Average distance</td>
-                <td>8.789</td>
-                <td>10.853</td>
+                <td id="averagebefore"></td>
+                <td id="averageafter"></td>
               </tr>
               <tr>
                 <td class="lalign">Efficiency</td>
-                <td>0.137</td>
-                <td>0.808</td>
+                <td id="efficiencybefore"></td>
+                <td id="efficiencyafter"></td>
               </tr>
             </tbody>
           </table>
@@ -215,26 +220,15 @@
             <thead>
               <tr>
                 <th><span>Degree-Count Relationship</span></th>
+                  <th><span></span></th>
+                  <th><span>Degree distribution</span></th>
               </tr>
             </thead>
           </table>
           <table id="keywords3" cellspacing="0" cellpadding="0">
             <div class="degree-line">
                 <div id="degree-before" style="width: 350px; height: 350px; margin: auto"></div>
-                <div id="degree-after" style="width: 350px; height: 350px; margin: auto"></div>
-            </div>
-          </table>
-          <table id="keywords4" cellspacing="0" cellpadding="0">
-            <thead>
-              <tr>
-                <th><span>Degree distribution</span></th>
-              </tr>
-            </thead>
-          </table>
-          <table id="keywords5" cellspacing="0" cellpadding="0">
-            <div class="degree-line">
                 <div id="dist-before" style="width: 350px; height: 350px; margin: auto"></div>
-                <div id="dist-after" style="width: 350px; height: 350px; margin: auto"></div>
             </div>
           </table>
       </div>
@@ -408,10 +402,10 @@
           <input id="nodepoint" required="" placeholder="" type="text" class="input">
           <span>Node</span>
         </label>
-          <label>
-              <input id="edgepoint" required="" placeholder="" type="text" class="input">
-              <span>Edge</span>
-          </label>
+<!--          <label>-->
+<!--              <input id="edgepoint" required="" placeholder="" type="text" class="input">-->
+<!--              <span>Edge</span>-->
+<!--          </label>-->
           <button class="cssbuttons-io-button" onclick="ressub()"> Submit
             <div class="icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
@@ -434,14 +428,16 @@
                   <div class="tags">
                     <span class="tag" style="background-color: royalblue">Result new node</span>
                   </div>
-                  <div class="notepage">
-                      <p id="res-deg">-Degree: &nbsp 8</p>
-                      <p id="res-clu">-Clustering: &nbsp 0.8</p>
-                      <p id="res-dce">-Degree centrality: &nbsp 0.002</p>
-                      <p id="res-bce">-Betweenness centrality: &nbsp 2.976×10^(-6)</p>
-                      <p id="res-cce">-Closeness centrality: &nbsp 0.13</p>
-                      <p id="res-ece">-Eigenvector centrality: &nbsp 6.68×10^(-3)</p>
-                      <p id="res-cco">-Clustering coefficient: &nbsp 0.39</p>
+                  <div id="nrresult" class="notepage">
+                      <p>-Number of nodes: 2719</p>
+                      <p>-Number of edges: 6168</p>
+                      <p>-Number of connected components: 1</p>
+                      <p>-Size of the largest connected component: 2719</p>
+                      <p>-k-core: Graph with 14 nodes and 64 edges</p>
+                      <p>-Network density: 0.0016692281524745738</p>
+                      <p>-Diameter: 47</p>
+                      <p>-Average shortest path length: 8.789288902853249</p>
+                      <p>-Efficiency: 0.13798191658642248</p>
                   </div>
                 </div>
               </div>
@@ -637,3 +633,5 @@
 <script src="./src/assets/js/resilience.js"></script>
 
 <script src="./src/assets/js2/map2.js"></script>
+<script src="./src/assets/js2/checknodes.js"></script>
+<script src="./src/assets/js2/showresilience.js"></script>

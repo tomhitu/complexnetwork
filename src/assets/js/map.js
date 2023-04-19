@@ -156,7 +156,7 @@ $(document).ready(function() {
                     })
           })
           .catch(function () {
-            alert("Something Error!");
+            alert("Something Error on map!");
           });
 })
 

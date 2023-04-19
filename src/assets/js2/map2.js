@@ -9,6 +9,9 @@ let option2;
 
 let datalocal2;
 
+let oneortwo = 0;
+let shortesttype = 0;
+
 
 // show loading
 /*
@@ -26,7 +29,6 @@ $(document).ready(function() {
             myChart2.hideLoading();
             let data = response.data;
             datalocal2 = data;
-            console.log(datalocal2);
             myChart2.setOption(
                 option2 = {
                     geo3D: {
@@ -69,7 +71,7 @@ $(document).ready(function() {
                             animationEasingUpdate: 'cubicInOut',
                             minDistance: 1,
                             maxDistance: 140,
-                            alpha: 35,
+                            alpha: 55,
                         },
                         silent: true,
                         roaming: true,
@@ -78,7 +80,7 @@ $(document).ready(function() {
                             borderColor: '#333',
                             borderWidth: 1,
                         },
-                        zoom: 1.2,
+                        zoom: 1,
                         center: [104, 80],
                         // label: {
                         //   show: false,
@@ -144,7 +146,7 @@ $(document).ready(function() {
                 })
         })
         .catch(function () {
-            alert("Something Error!");
+            alert("Something Error on map2!");
         });
 })
 
