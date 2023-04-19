@@ -51,53 +51,54 @@ function prededge() {
     let lat_node = document.getElementById("latpoint").value;
     nonepe.style.display = 'none';
     resultpe.style.display = 'block';
-    axios.post('https://tomhitu.pythonanywhere.com/pred_edges', {
-        longitude: lon_node,
-        latitude: lat_node
-    })
-    .then(function (response) {
-        let status = response.data.status;
-        let n_degree = response.data.n_degree;
-        let new_neighbor_node = response.data.new_neighbor_node;
-        let new_edges_distance = response.data.new_edges_distance;
-        let new_edges_travel_time = response.data.new_edges_travel_time;
-        let new_edges_train_speed = response.data.new_edges_train_speed;
-        let new_node_id = response.data.new_node_id;
-        console.log(new_node_id);
-        if (status === 0) {
-            console.log(n_degree);
-            let n_degree_str = n_degree.toString();
-            document.getElementById("pred-edge").innerHTML = "-N degree: &nbsp" + n_degree_str;
-            let new_node = [{
-                "name": new_node_id,
-                "value": [parseFloat(lon_node), parseFloat(lat_node)]
-            }]
-            console.log(new_neighbor_node);
-            console.log(new_edges_distance);
-            console.log(new_edges_travel_time);
-            console.log(new_edges_train_speed);
-            let new_edges_data = [];
-            let new_edges = [];
-            for (let i = 0; i < new_edges_train_speed.length; i++) {
-              let item = {
-                index: i + 1,
-                neighborNode: new_neighbor_node[i],
-                distance: new_edges_distance[i],
-                time: new_edges_travel_time[i],
-                speed: new_edges_train_speed[i]
-              };
-              let edge = {
-                  "source": new_node_id,
-                  "target": new_neighbor_node[i],
-                  "train": ""
-              }
-              new_edges_data.push(item);
-              new_edges.push(edge);
-            }
+    if (oneortwo === 0) {
+        axios.post('https://tomhitu.pythonanywhere.com/pred_edges', {
+            longitude: lon_node,
+            latitude: lat_node
+        })
+            .then(function (response) {
+                let status = response.data.status;
+                let n_degree = response.data.n_degree;
+                let new_neighbor_node = response.data.new_neighbor_node;
+                let new_edges_distance = response.data.new_edges_distance;
+                let new_edges_travel_time = response.data.new_edges_travel_time;
+                let new_edges_train_speed = response.data.new_edges_train_speed;
+                let new_node_id = response.data.new_node_id;
+                console.log(new_node_id);
+                if (status === 0) {
+                    console.log(n_degree);
+                    let n_degree_str = n_degree.toString();
+                    document.getElementById("pred-edge").innerHTML = "-N degree: &nbsp" + n_degree_str;
+                    let new_node = [{
+                        "name": new_node_id,
+                        "value": [parseFloat(lon_node), parseFloat(lat_node)]
+                    }]
+                    console.log(new_neighbor_node);
+                    console.log(new_edges_distance);
+                    console.log(new_edges_travel_time);
+                    console.log(new_edges_train_speed);
+                    let new_edges_data = [];
+                    let new_edges = [];
+                    for (let i = 0; i < new_edges_train_speed.length; i++) {
+                        let item = {
+                            index: i + 1,
+                            neighborNode: new_neighbor_node[i],
+                            distance: new_edges_distance[i],
+                            time: new_edges_travel_time[i],
+                            speed: new_edges_train_speed[i]
+                        };
+                        let edge = {
+                            "source": new_node_id,
+                            "target": new_neighbor_node[i],
+                            "train": ""
+                        }
+                        new_edges_data.push(item);
+                        new_edges.push(edge);
+                    }
 
-            let tableBody = document.getElementById("pred-edge-info");
-            for (let i = 0; i < new_edges_data.length; i++) {
-              let row = `
+                    let tableBody = document.getElementById("pred-edge-info");
+                    for (let i = 0; i < new_edges_data.length; i++) {
+                        let row = `
                 <tr>{
                   <td><p>index: &nbsp ${new_edges_data[i].index},</p></td>
                   <td><p>neighbor_node: &nbsp ${new_edges_data[i].neighborNode},</p></td>
@@ -108,23 +109,97 @@ function prededge() {
                 </tr>
               `;
 
-                if (i === 0) {
-                    tableBody.innerHTML = row
-                }
-                else {
-                    tableBody.innerHTML += row;
-                }
-            }
+                        if (i === 0) {
+                            tableBody.innerHTML = row
+                        }
+                        else {
+                            tableBody.innerHTML += row;
+                        }
+                    }
 
-            showprededges(new_node, new_edges);
+                    showprededges(new_node, new_edges);
 
-        } else {
-            alert("No route found!");
-        }
-    })
-    .catch(function (error) {
-        alert("Error!");
-    });
+                } else {
+                    alert("No route found!");
+                }
+            })
+            .catch(function (error) {
+                alert("Error!");
+            });
+    }
+    else {
+        axios.post('https://tomhitu.pythonanywhere.com/pred_paris_edges', {
+            longitude: lon_node,
+            latitude: lat_node
+        }).then(function (response) {
+            console.log(response)
+                let status = response.data.status;
+                let n_paris_degree = response.data.n_degree;
+                console.log('n_paris_degree', n_paris_degree);
+                let new_paris_neighbor_node = response.data.new_neighbor_node;
+                console.log(new_paris_neighbor_node);
+                let new_paris_edges_distance = response.data.new_edges_distance;
+                console.log(new_paris_edges_distance);
+                let new_paris_edges_type = response.data.new_edges_type_num;
+                console.log(new_paris_edges_type);
+                let new_paris_node_id = 'xxxxx';
+                if (status === 0) {
+                    console.log(n_paris_degree);
+                    let n_paris_degree_str = n_paris_degree.toString();
+                    document.getElementById("pred-edge").innerHTML = "-N degree: &nbsp" + n_paris_degree_str;
+                    let new_paris_node = [{
+                        "name": new_paris_node_id,
+                        "value": [parseFloat(lat_node), parseFloat(lon_node)]
+                    }]
+                    let new_paris_edges_data = [];
+                    let new_paris_edges = [];
+                    for (let i = 0; i < new_paris_edges_distance.length; i++) {
+                        let item_paris = {
+                            index: i + 1,
+                            neighborNode: new_paris_neighbor_node[i],
+                            distance: new_paris_edges_distance[i],
+                            type: new_paris_edges_type[i]
+                        };
+                        let edge_paris = {
+                            "source": new_paris_node_id,
+                            "target": new_paris_neighbor_node[i],
+                        }
+                        new_paris_edges_data.push(item_paris);
+                        new_paris_edges.push(edge_paris);
+                    }
+                    console.log('hellow');
+
+                    let tableBody = document.getElementById("pred-edge-info");
+                    for (let i = 0; i < new_paris_edges_data.length; i++) {
+                        let row = `
+                <tr>{
+                  <td><p>index: &nbsp ${new_paris_edges_data[i].index},</p></td>
+                  <td><p>neighbor_node: &nbsp ${new_paris_edges_data[i].neighborNode},</p></td>
+                  <td><p>distance: &nbsp ${new_paris_edges_data[i].distance},</p></td>
+                  <td><p>type: &nbsp ${new_paris_edges_data[i].type},</p></td>
+                  }
+                </tr>
+              `;
+                        if (i === 0) {
+                            tableBody.innerHTML = row
+                        }
+                        else {
+                            tableBody.innerHTML += row;
+                        }
+                    }
+
+                    console.log('success');
+
+                    showprededges(new_paris_node, new_paris_edges);
+
+                } else {
+                    alert("No route found!");
+                }
+            })
+            .catch(function (error) {
+                alert("Error!");
+            });
+    }
 }
 
 function showhidden() {

@@ -394,77 +394,167 @@ function showshortestpath(route, routeless, routesd) {
 
 // show the prediction edges on map
 function showprededges(newnode, newedges) {
-  // console.log(newnode, newedges);
-  let tmoption = myChart.getOption();
-  let predSeries = tmoption.series.slice(0, 2); // only keep the initial option
-  let predOption = {
-    ...tmoption,
-    series: predSeries,
-  };
+  if (oneortwo === 0) {
+    let tmoption = myChart.getOption();
+    let predSeries = tmoption.series.slice(0, 2); // only keep the initial option
+    let predOption = {
+      ...tmoption,
+      series: predSeries,
+    };
 
-  predOption.series.push({
-          name: "Nodes2",
-          type: "scatter3D",
-          coordinateSystem: "geo3D",
-          symbolSize: 8,
+    predOption.series.push({
+      name: "Nodes2",
+      type: "scatter3D",
+      coordinateSystem: "geo3D",
+      symbolSize: 8,
+      itemStyle: {
+        z: 1
+      },
+      emphasis: { // hover node color
+        itemStyle: {
+          color: 'rgba(0, 255, 0, 1)' // 绿色
+        },
+        label: {
+          show: true,
+          formatter: function(params) {
+            return params.name;
+          },
+          textStyle: {
+            color: '#000',
+          }
+        },
+      },
+      data: newnode.map(function (node) {
+        return {
+          name: node.name,
+          value: node.value,
           itemStyle: {
-            z: 1
-          },
-          emphasis: { // hover node color
-            itemStyle: {
-              color: 'rgba(0, 255, 0, 1)' // 绿色
-            },
-            label: {
-              show: true,
-              formatter: function(params) {
-                  return params.name;
-              },
-              textStyle: {
-                color: '#000',
-             }
-            },
-          },
-          data: newnode.map(function (node) {
-            return {
-                name: node.name,
-                value: node.value,
-                itemStyle: {
-                  color: 'royalblue',
-                  opacity: 1,
-                }
-            }
-          }),
-        })
-  predOption.series.push({
-          name: "Edges2",
-          type: "lines3D",
-          coordinateSystem: "geo3D",
-          effect: {
-            show: ifrun,
-            trailWidth: 1,
-            trailOpacity: 0.5,
-            trailLength: 0.2,
-            constantSpeed: 5,
-          },
-          blendMode: "lighter",
+            color: 'royalblue',
+            opacity: 1,
+          }
+        }
+      }),
+    })
+    predOption.series.push({
+      name: "Edges2",
+      type: "lines3D",
+      coordinateSystem: "geo3D",
+      effect: {
+        show: ifrun,
+        trailWidth: 1,
+        trailOpacity: 0.5,
+        trailLength: 0.2,
+        constantSpeed: 5,
+      },
+      blendMode: "lighter",
+      lineStyle: {
+        curveness: 0.3,
+        width: 3,
+        z: 2
+      },
+      data: newedges.map(function (e) {
+        const sourceNode = newnode.find((node) => node.name === e.source);
+        const targetNode = datalocal.nodes.find((node) => node.name === e.target);
+        return {
+          coords: [sourceNode.value, targetNode.value],
           lineStyle: {
-            curveness: 0.3,
-            width: 1,
-            z: 2
-          },
-          data: newedges.map(function (e) {
-            const sourceNode = newnode.find((node) => node.name === e.source);
-            const targetNode = datalocal.nodes.find((node) => node.name === e.target);
-            return {
-              coords: [sourceNode.value, targetNode.value],
-              lineStyle: {
-                color: '#ff0000',
-                opacity: 1,
-              }
-            };
-          }),
-        })
+            color: '#ff0000',
+            opacity: 1,
+          }
+        };
+      }),
+    })
     myChart.setOption(predOption);
+  }
+  else {
+    console.log(newnode, newedges);
+    myChart2.setOption({
+      series: [
+        {
+          name: "Nodes",
+          itemStyle: {
+            opacity: 0.1
+          }
+        },
+        {
+          name: "Edges",
+          lineStyle: {
+            opacity: 0.1
+        }
+        }
+      ]
+    })
+    let tmoption = myChart2.getOption();
+    let predSeries = tmoption.series.slice(0, 2); // only keep the initial option
+    let predOption = {
+      ...tmoption,
+      series: predSeries,
+    };
+
+    predOption.series.push({
+      name: "Nodes2",
+      type: "scatter3D",
+      coordinateSystem: "geo3D",
+      symbolSize: 8,
+      itemStyle: {
+        z: 1
+      },
+      emphasis: { // hover node color
+        itemStyle: {
+          color: 'rgba(0, 255, 0, 1)' // 绿色
+        },
+        label: {
+          show: true,
+          formatter: function(params) {
+            return params.name;
+          },
+          textStyle: {
+            color: '#000',
+          }
+        },
+      },
+      data: newnode.map(function (node) {
+        return {
+          name: node.name,
+          value: node.value,
+          itemStyle: {
+            color: 'royalblue',
+            opacity: 1,
+          }
+        }
+      }),
+    })
+    predOption.series.push({
+      name: "Edges2",
+      type: "lines3D",
+      coordinateSystem: "geo3D",
+      effect: {
+        show: ifrun,
+        trailWidth: 1,
+        trailOpacity: 0.5,
+        trailLength: 0.2,
+        constantSpeed: 5,
+      },
+      blendMode: "lighter",
+      lineStyle: {
+        curveness: 0.3,
+        width: 3,
+        z: 2
+      },
+      data: newedges.map(function (e) {
+        const sourceNode = newnode.find((node) => node.name === e.source);
+        const targetNode = datalocal2.nodes.find((node) => node.name === e.target);
+        return {
+          coords: [sourceNode.value, targetNode.value],
+          lineStyle: {
+            color: '#ff0000',
+            opacity: 1,
+          }
+        }
+      }),
+    })
+    myChart2.setOption(predOption);
+  }
 }
 
 // show the hidden edges on map
@@ -679,6 +769,7 @@ function ifmeetlimit(num, min, max) {
 
 // show the cluster of nodes on map with limitation
 function setlimit(min, max, type) {
+  console.log(type, parisclustertype);
   if (type === 0) {
     if (clustertype <= 6) {
       myChart.setOption({
@@ -688,8 +779,9 @@ function setlimit(min, max, type) {
             type: "scatter3D",
             data: datalocal.nodes.map(function (node) {
               const type = netorpro === 0 ? cluster_type[clustertype] : cluster_state_type[clustertype];
-              const color = colorslist[node[type]];
-              const opacity = ifmeetlimit(node[type], min, max) ? 0.5 : 0;
+              // const color = colorslist[node[type]];
+              const color = ifmeetlimit(node[type], min, max) ? '#ff0000' : 'white';
+              const opacity = ifmeetlimit(node[type], min, max) ? 1 : 0.1;
               return {
                 name: node.name,
                 value: node.value,
@@ -713,20 +805,24 @@ function setlimit(min, max, type) {
               const sourceNode = datalocal.nodes.find((node) => node.name === e.source);
               const targetNode = datalocal.nodes.find((node) => node.name === e.target);
               const type = cluster_edge_type[clustertype - 7];
-              let color, opacity;
+              let color, opacity, width;
               if (type === 'train') {
                 color = /\d/.test(e.train[0]) ? '#ff0000' : tcolor[e.train[0]];
                 opacity = 0.5;
+                width = 1;
               }
               else {
-                color = colorslist[e[type]];
-                opacity = ifmeetlimit(e[type], min, max) ? 0.5 : 0;
+                // color = colorslist[e[type]];
+                color = ifmeetlimit(e[type], min, max) ? '#ff0000' : 'white';
+                opacity = ifmeetlimit(e[type], min, max) ? 1 : 0.1;
+                width = ifmeetlimit(e[type], min, max) ? 5 : 1;
               }
               return {
                 coords: [sourceNode.value, targetNode.value],
                 lineStyle: {
                   color: color,
                   opacity: opacity,
+                  width: width
                 }
               };
             }),
@@ -751,7 +847,8 @@ function setlimit(min, max, type) {
             type: "scatter3D",
             data: datalocal2.nodes.map(function (node) {
               const type = paris_cluster_type[parisclustertype];
-              const color = colorslist[node[type]];
+              // const color = colorslist[node[type]];
+              const color = ifmeetlimit(node[type], min, max) ? '#ff0000' : 'white';
               const opacity = ifmeetlimit(node[type], min, max) ? 0.5 : 0;
               return {
                 name: node.name,
@@ -772,16 +869,19 @@ function setlimit(min, max, type) {
           {
             name: "Edges",
             type: "lines3D",
-            data: datalocal.edges.map(function (e) {
+            data: datalocal2.edges.map(function (e) {
               const type = paris_cluster_edge_type[parisclustertype - 7];
-              let color, opacity;
-              color = colorslist[e[type]];
+              let color, opacity, width;
+              // color = colorslist[e[type]];
+              color = ifmeetlimit(e[type], min, max) ? '#ff0000' : 'white';
               opacity = ifmeetlimit(e[type], min, max) ? 0.5 : 0;
+              width = ifmeetlimit(e[type], min, max) ? 3 : 1;
               return {
-                coords: [e[0], e[1]],
+                coords: [e.value[0], e.value[1]],
                 lineStyle: {
                   color: color,
                   opacity: opacity,
+                  width: width
                 }
               };
             }),
