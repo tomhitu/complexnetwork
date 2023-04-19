@@ -3,8 +3,6 @@
     display: flex;
     flex-direction: column;
     height: calc(100% - 158px);
-    overflow-y: scroll;
-    -ms-overflow-style: initial;
 }
 
 /* scroll type */
