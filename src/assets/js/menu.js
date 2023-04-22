@@ -490,11 +490,6 @@ function shownodecluster() {
 function showedgecluster() {
     chartDom.style.display = 'none';
     chartDom2.style.display = 'block';
-    var updatedOption = myChart2.getOption();
-    var zoom = updatedOption.geo3D[0].zoom;
-    var center = updatedOption.geo3D[0].center;
-    var distance = updatedOption.geo3D[0].viewControl.distance;
-    var alpha = updatedOption.geo3D[0].viewControl.alpha;
 
     let clunodework = document.getElementById('nodecluster');
     let cluedgework = document.getElementById('edgecluster');
@@ -523,13 +518,11 @@ function showedgecluster() {
                         <p>-Average shortest path length of the largest connected component: 1.8181818181818181</p>
                         <p>-Efficiency of the largest connected component: 0.5909090909090909</p>`
 
-    console.log('Zoom:', zoom);
-    console.log('Center:', center);
-    console.log('distance:', distance);
-    console.log('Alpha:', alpha);
 
     let clusterbut = document.getElementById('clusterchina');
     let clusterparisbut = document.getElementById('clusterparis');
     clusterbut.style.display = 'none';
     clusterparisbut.style.display = 'flex';
+
+    console.log(myChart2.getOption());
 }

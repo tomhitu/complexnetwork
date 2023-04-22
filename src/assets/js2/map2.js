@@ -63,15 +63,16 @@ $(document).ready(function() {
                             },
                         },
                         viewControl: {
-                            distance: 140,
+                            distance: 1,
                             panMouseButton: 'left',
                             rotateMouseButton: 'right',
                             animation: true,
                             animationDurationUpdate: 100,
                             animationEasingUpdate: 'cubicInOut',
                             minDistance: 1,
-                            maxDistance: 140,
+                            maxDistance: 300,
                             alpha: 55,
+                            center: [-6.449460322666282,16.333913413468856,-23.327245883743768]
                         },
                         silent: true,
                         roaming: true,
@@ -80,15 +81,14 @@ $(document).ready(function() {
                             borderColor: '#333',
                             borderWidth: 1,
                         },
-                        zoom: 1,
-                        center: [104, 80],
+                        zoom: 1.2,
                         // label: {
                         //   show: false,
                         // },
                     },
                     series: [
                         {
-                            name: "Nodes1",
+                            name: "Nodes",
                             type: "scatter3D",
                             coordinateSystem: "geo3D",
                             symbolSize: 8,
@@ -115,7 +115,7 @@ $(document).ready(function() {
                             },
                         },
                         {
-                            name: "Edges1",
+                            name: "Edges",
                             type: "lines3D",
                             coordinateSystem: "geo3D",
                             effect: {
@@ -150,5 +150,4 @@ $(document).ready(function() {
         });
 })
 
-
-option2 && myChart2.setOption(option2);
+myChart2.resize();

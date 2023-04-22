@@ -351,9 +351,9 @@ $(document).ready(function() {
         let status = response.data.status
         if (status === 0) {
           let attack_china = response.data.attack_china;
-          console.log(attack_china);
+          // console.log(attack_china);
           let attack_paris = response.data.attack_paris;
-          console.log(attack_paris);
+          // console.log(attack_paris);
         }
       })
       .catch(function () {
