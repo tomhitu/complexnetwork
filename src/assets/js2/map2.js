@@ -29,7 +29,7 @@ $(document).ready(function() {
             myChart2.hideLoading();
             let data = response.data;
             datalocal2 = data;
-            myChart2.setOption( 
+            myChart2.setOption(
                 option2 = {
                     geo3D: {
                         map: "France",
@@ -63,7 +63,7 @@ $(document).ready(function() {
                             },
                         },
                         viewControl: {
-                            distance: 12.64,
+                            distance: 14,
                             panMouseButton: 'left',
                             rotateMouseButton: 'right',
                             animation: true,
@@ -71,9 +71,9 @@ $(document).ready(function() {
                             animationEasingUpdate: 'cubicInOut',
                             minDistance: 1,
                             maxDistance: 500,
-                            alpha: 73,
-                            beta: 7.3,
-                            center: [-4.73828219898007,13.713804426958966,-17.921540507954408]
+                            alpha: 60,
+                            beta: 2,
+                            center: [-7,12,-12]
                         },
                         silent: true,
                         roaming: true,
