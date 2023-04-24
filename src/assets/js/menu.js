@@ -448,6 +448,8 @@ function cluster_edge() {
 }
 
 function shownodecluster() {
+    let lesstrans = document.getElementById('lesstransfer');
+    lesstrans.style.display = 'flex';
     chartDom.style.display = 'block';
     chartDom2.style.display = 'none';
     oneortwo = 0;
@@ -488,6 +490,8 @@ function shownodecluster() {
 }
 
 function showedgecluster() {
+    let lesstrans = document.getElementById('lesstransfer');
+    lesstrans.style.display = 'none';
     chartDom.style.display = 'none';
     chartDom2.style.display = 'block';
 

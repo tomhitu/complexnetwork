@@ -390,6 +390,88 @@ function showshortestpath(routeless, routesd) {
   myChart.setOption(predOption);
 }
 
+function showparisshortestpath(routesd) {
+  routesd = routesd.map(num => parseInt(num, 10));
+  myChart2.setOption({
+    series: [
+      {
+        name: "Nodes",
+        type: "scatter3D",
+        coordinateSystem: "geo3D",
+        symbolSize: 8,
+        itemStyle: {
+          z: 1
+        },
+        emphasis: { // hover node color
+          itemStyle: {
+            color: 'rgba(0, 255, 0, 1)' // 绿色
+          },
+          label: {
+            show: true,
+            formatter: function(params) {
+              return params.name;
+            },
+            textStyle: {
+              color: '#000',
+            }
+          },
+        },
+        data: datalocal2.nodes.map(function (node) {
+          const ifin = routesd.includes(node.name);
+          const color = ifin ? 'royalblue' : 'grey';
+          const opcity = ifin ? 1 : 0.1;
+          return {
+            name: node.name,
+            value: node.value,
+            itemStyle: {
+              color: color,
+              opacity: opcity,
+            }
+          }
+        }),
+      },
+      {
+        name: "Edges",
+        type: "lines3D",
+        coordinateSystem: "geo3D",
+        effect: {
+          show: ifrun,
+          trailWidth: 1,
+          trailOpacity: 0.5,
+          trailLength: 0.2,
+          constantSpeed: 5,
+        },
+        blendMode: "lighter",
+        lineStyle: {
+          curveness: 0.3,
+          width: 1,
+          z: 2
+        },
+        data: datalocal2.edges.map(function (e) {
+          const ifsd = are_numbers_adjacent_in_list(e.source, e.target, routesd);
+          const color = ifsd ? '#ff0000' : 'grey';
+          const opacity = ifsd ? 1 : 0;
+
+          return {
+            coords: [e.value[0], e.value[1]],
+            lineStyle: {
+              color: color,
+              opacity: opacity,
+            }
+          };
+        }),
+      },
+    ],
+  })
+  let tmoption = myChart2.getOption();
+  let predSeries = tmoption.series.slice(0, 2); // only keep the initial option
+  let predOption = {
+    ...tmoption,
+    series: predSeries,
+  };
+  myChart2.setOption(predOption);
+}
+
 
 // show the prediction edges on map
 function showprededges(newnode, newedges) {
