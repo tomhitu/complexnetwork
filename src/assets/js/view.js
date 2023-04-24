@@ -10,8 +10,55 @@ let cluster_edge_type = ['train', 'cluster_speed', 'cluster_across', 'cluster_ov
 let paris_cluster_type = ['cluster_lat_lon', 'cluster_degree', 'cluster_Degree_Centrality', 'cluster_Clustering_Coefficients', 'cluster_Closeness_Centrality', 'cluster_Betweenness_Centrality', 'cluster_Eigenvector_Centrality']
 let paris_cluster_edge_type = ['cluster_type', 'cluster_across', 'cluster_distance']
 
+let cluchinanode = {"state_num": 30, "cluster_degree": 29, "cluster_state_degree": 29, "cluster_Degree_Centrality": 29, "cluster_state_Degree_Centrality": 29, "cluster_Clustering_Coefficients": 27, "cluster_state_Clustering_Coefficients": 27, "cluster_Closeness_Centrality": 1, "cluster_state_Closeness_Centrality": 1, "cluster_Betweenness_Centrality": 1, "cluster_state_Betweenness_Centrality": 1, "cluster_Eigenvector_Centrality": 1, "cluster_state_Eigenvector_Centrality": 1}
+let cluchinaedge = {"cluster_speed": 4, "cluster_across": 1, "cluster_overnight": 1, "cluster_distance": 2}
+let cluparisnode = {"cluster_lat_lon": 5, "cluster_degree": 1, "cluster_Degree_Centrality": 1, "cluster_Clustering_Coefficients": 8, "cluster_Closeness_Centrality": 1, "cluster_Betweenness_Centrality": 1, "cluster_Eigenvector_Centrality": 2}
+let cluparisedge = {"cluster_across": 1, "cluster_type": 5, "cluster_distance": 2}
 
-function getRandomColor(existingColors) {
+
+function getRandomColor(i) {
+  var startR = 255, startG = 32, startB = 29;
+  var endR = 66, endG = 195, endB = 83;
+
+  var gapcolor = colornumber - 1;
+
+  var stepR = (endR - startR) / gapcolor;
+  var stepG = (endG - startG) / gapcolor;
+  var stepB = (endB - startB) / gapcolor;
+
+    var r = Math.floor(startR + i * stepR);
+    var g = Math.floor(startG + i * stepG);
+    var b = Math.floor(startB + i * stepB);
+
+    var hexR = r.toString(16).padStart(2, '0');
+    var hexG = g.toString(16).padStart(2, '0');
+    var hexB = b.toString(16).padStart(2, '0');
+
+    var hexColor = '#' + hexR + hexG + hexB;
+
+  return hexColor;
+}
+
+
+let colorslist = [];
+let colornumber = 30;
+
+for (let i = 0; i < colornumber; i++) {
+  let color = getRandomColor(i);
+  colorslist.push(color);
+}
+
+function recolor(maxnumcolor) {
+  colornumber = maxnumcolor + 1
+  colorslist = []
+  for (let i = 0; i < colornumber; i++) {
+    let color = getRandomColor(i);
+    colorslist.push(color);
+  }
+}
+
+
+function getstateRandomColor(existingColors) {
   var r = Math.floor(Math.random() * 256);
   var g = Math.floor(Math.random() * 256);
   var b = Math.floor(Math.random() * 256);
@@ -23,17 +70,18 @@ function getRandomColor(existingColors) {
   var hexColor = '#' + hexR + hexG + hexB;
 
   if (existingColors.includes(hexColor)) {
-    return getRandomColor(existingColors);
+    return getstateRandomColor(existingColors);
   }
   return hexColor;
 }
 
-let colorslist = [];
+let statecolorslist = [];
 
 for (let i = 0; i < 30; i++) {
-  let color = getRandomColor(colorslist);
-  colorslist.push(color);
+  let color = getstateRandomColor(statecolorslist);
+  statecolorslist.push(color);
 }
+
 
 function showtype(isshow, num) {
   let typetrain = document.getElementById('typeoftrian');
@@ -548,7 +596,7 @@ function showprededges(newnode, newedges) {
     myChart.setOption(predOption);
   }
   else {
-    console.log(newnode, newedges);
+    // console.log(newnode, newedges);
     myChart2.setOption({
       series: [
         {
@@ -595,6 +643,8 @@ function showprededges(newnode, newedges) {
         },
       },
       data: newnode.map(function (node) {
+        // console.log('newnode.name', node.name)
+        // console.log('newnode.value', node.value)
         return {
           name: node.name,
           value: node.value,
@@ -623,8 +673,9 @@ function showprededges(newnode, newedges) {
         z: 2
       },
       data: newedges.map(function (e) {
+        // console.log('newnode[0].value', newnode[0].value)
         const targetNode = datalocal2.nodes.find((node) => node.name === e.target);
-        console.log(targetNode);
+        // console.log(targetNode);
         return {
           coords: [newnode[0].value, targetNode.value],
           lineStyle: {
@@ -718,6 +769,7 @@ function showhidedges(hiddennodes, hiddenedges) {
 
 // show the cluster of nodes on map
 function clusternodes(param) {
+  recolor(cluchinanode[param])
   myChart.setOption({
     series: [
         {
@@ -744,7 +796,10 @@ function clusternodes(param) {
           },
           data: datalocal.nodes.map(function (node) {
             const type = param
-            const color = colorslist[node[type]];
+            let color = colorslist[node[type]]
+            if (param === 'state_num') {
+              color = statecolorslist[node[type]]
+            }
             return {
                 name: node.name,
                 value: node.value,
@@ -781,6 +836,7 @@ function clusternodes(param) {
 
 // show the cluster of nodes on map2
 function clusterparisenodes(param) {
+  recolor(cluparisnode[param])
   myChart2.setOption({
     series: [
       {
@@ -807,7 +863,10 @@ function clusterparisenodes(param) {
         },
         data: datalocal2.nodes.map(function (node) {
           const type = param
-          const color = colorslist[node[type]];
+          let color = colorslist[node[type]];
+          if (param === 'cluster_lat_lon') {
+            color = statecolorslist[node[type]];
+          }
           return {
             name: node.name,
             value: node.value,
@@ -1043,6 +1102,7 @@ function resetcluster() {
 }
 
 function clusteredges(param) {
+  recolor(cluchinaedge[param])
   myChart.setOption({
     series: [
         {
@@ -1095,6 +1155,7 @@ function clusteredges(param) {
 }
 
 function clusterpariseedges(param) {
+  recolor(cluparisedge[param])
   myChart2.setOption({
     series: [
       {
