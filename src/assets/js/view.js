@@ -200,8 +200,8 @@ function showtype(isshow, num) {
         noedge.style.display = 'block';
         cluster.style.display = 'flex';
         ifrun = true;
-        cltype(3);
         pariscltype(0);
+        cltype(3);
         gradientbar.style.display = 'block';
         break;
       case 4:
@@ -931,7 +931,7 @@ function setlimit(min, max, type) {
             data: datalocal.nodes.map(function (node) {
               const type = netorpro === 0 ? cluster_type[clustertype] : cluster_state_type[clustertype];
               // const color = colorslist[node[type]];
-              const color = ifmeetlimit(node[type], min, max) ? '#ff0000' : 'white';
+              const color = ifmeetlimit(node[type], min, max) ? '#0015ff' : 'white';
               const opacity = ifmeetlimit(node[type], min, max) ? 1 : 0.1;
               return {
                 name: node.name,
@@ -958,13 +958,13 @@ function setlimit(min, max, type) {
               const type = cluster_edge_type[clustertype - 7];
               let color, opacity, width;
               if (type === 'train') {
-                color = /\d/.test(e.train[0]) ? '#ff0000' : tcolor[e.train[0]];
+                color = /\d/.test(e.train[0]) ? '#0015ff' : tcolor[e.train[0]];
                 opacity = 0.5;
                 width = 1;
               }
               else {
                 // color = colorslist[e[type]];
-                color = ifmeetlimit(e[type], min, max) ? '#ff0000' : 'white';
+                color = ifmeetlimit(e[type], min, max) ? '#0015ff' : 'white';
                 opacity = ifmeetlimit(e[type], min, max) ? 1 : 0.1;
                 width = ifmeetlimit(e[type], min, max) ? 5 : 1;
               }
@@ -999,7 +999,7 @@ function setlimit(min, max, type) {
             data: datalocal2.nodes.map(function (node) {
               const type = paris_cluster_type[parisclustertype];
               // const color = colorslist[node[type]];
-              const color = ifmeetlimit(node[type], min, max) ? '#ff0000' : 'white';
+              const color = ifmeetlimit(node[type], min, max) ? '#0015ff' : 'white';
               const opacity = ifmeetlimit(node[type], min, max) ? 0.5 : 0;
               return {
                 name: node.name,
@@ -1024,7 +1024,7 @@ function setlimit(min, max, type) {
               const type = paris_cluster_edge_type[parisclustertype - 7];
               let color, opacity, width;
               // color = colorslist[e[type]];
-              color = ifmeetlimit(e[type], min, max) ? '#ff0000' : 'white';
+              color = ifmeetlimit(e[type], min, max) ? '#0015ff' : 'white';
               opacity = ifmeetlimit(e[type], min, max) ? 0.5 : 0;
               width = ifmeetlimit(e[type], min, max) ? 3 : 1;
               return {

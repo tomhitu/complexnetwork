@@ -434,6 +434,7 @@ function cluster_node() {
     document.getElementById("edgeform").style.display = 'none';
     document.getElementById("node2form").style.display = 'flex';
     document.getElementById("edge2form").style.display = 'none';
+
     document.getElementById("nodecluster").style.display = 'flex';
     document.getElementById("edgecluster").style.display = 'none';
     clustertype = 2;
@@ -447,6 +448,7 @@ function cluster_edge() {
     document.getElementById("edgeform").style.display = 'flex';
     document.getElementById("node2form").style.display = 'none';
     document.getElementById("edge2form").style.display = 'flex';
+
     document.getElementById("nodecluster").style.display = 'none';
     document.getElementById("edgecluster").style.display = 'flex';
     clustertype = 7;
@@ -491,18 +493,25 @@ function shownodecluster() {
     <p>-Efficiency: 0.13798191658642248</p>`
 
     let clusterbut = document.getElementById('clusterchina');
+    clusterbut.style.display = 'flex';
     let clusterparisbut = document.getElementById('clusterparis');
+    clusterparisbut.style.display = 'none';
+    console.log('clustertype', clustertype)
     if (clustertype < 7) {
-        clusterbut.style.display = 'flex';
-        clusterparisbut.style.display = 'none';
         clunodework.style.display = 'flex';
         cluedgework.style.display = 'none';
+        document.getElementById("nodeform").style.display = 'flex';
+        document.getElementById("edgeform").style.display = 'none';
+        document.getElementById("node2form").style.display = 'none';
+        document.getElementById("edge2form").style.display = 'none';
     }
     else {
-        clusterbut.style.display = 'none';
-        clusterparisbut.style.display = 'flex';
         clunodework.style.display = 'none';
         cluedgework.style.display = 'flex';
+        document.getElementById("nodeform").style.display = 'none';
+        document.getElementById("edgeform").style.display = 'flex';
+        document.getElementById("node2form").style.display = 'none';
+        document.getElementById("edge2form").style.display = 'none';
     }
 }
 
@@ -514,6 +523,18 @@ function showedgecluster() {
     else {
         gradientbar.style.display = 'none';
     }
+    if (parisclustertype < 7) {
+        document.getElementById("nodeform").style.display = 'none';
+        document.getElementById("edgeform").style.display = 'none';
+        document.getElementById("node2form").style.display = 'flex';
+        document.getElementById("edge2form").style.display = 'none';
+    }
+    else {
+        document.getElementById("nodeform").style.display = 'none';
+        document.getElementById("edgeform").style.display = 'none';
+        document.getElementById("node2form").style.display = 'none';
+        document.getElementById("edge2form").style.display = 'flex';
+    }
     let lesstrans = document.getElementById('lesstransfer');
     lesstrans.style.display = 'none';
     chartDom.style.display = 'none';
@@ -522,7 +543,7 @@ function showedgecluster() {
     let clunodework = document.getElementById('nodecluster');
     let cluedgework = document.getElementById('edgecluster');
     clunodework.style.display = 'none';
-    cluedgework.style.display = 'none';
+    cluedgework.style.display = 'flex';
 
     oneortwo = 1;
 
