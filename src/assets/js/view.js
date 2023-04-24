@@ -304,7 +304,7 @@ function are_numbers_adjacent_in_list(n1, n2, lst) {
 
 
 // show the shortest path on map
-function showshortestpath(route, routeless, routesd) {
+function showshortestpath(routeless, routesd) {
   routesd = routesd.map(num => parseInt(num, 10));
   routeless = routeless.map(num => parseInt(num, 10));
   myChart.setOption({
@@ -332,7 +332,7 @@ function showshortestpath(route, routeless, routesd) {
             },
           },
           data: datalocal.nodes.map(function (node) {
-            const ifin = route.includes(node.name) || routeless.includes(node.name) || routesd.includes(node.name);
+            const ifin = routeless.includes(node.name) || routesd.includes(node.name);
             const color = ifin ? 'royalblue' : 'grey';
             const opcity = ifin ? 1 : 0.1;
             return {
@@ -365,11 +365,10 @@ function showshortestpath(route, routeless, routesd) {
           data: datalocal.edges.map(function (e) {
             const sourceNode = datalocal.nodes.find((node) => node.name === e.source);
             const targetNode = datalocal.nodes.find((node) => node.name === e.target);
-            const ifin = are_numbers_adjacent_in_list(e.source, e.target, route);
             const ifless = are_numbers_adjacent_in_list(e.source, e.target, routeless);
             const ifsd = are_numbers_adjacent_in_list(e.source, e.target, routesd);
-            const color = ifless ? '#0033ff' : ifsd ? '#ffb700' : ifin ? '#ff0000' : 'grey';
-            const opacity = ifless ? 1 : ifsd ? 1 : ifin ? 1 : 0;
+            const color = ifless ? '#0033ff' : ifsd ? '#ff0000' : 'grey';
+            const opacity = ifless ? 1 : ifsd ? 1 : 0;
 
             return {
               coords: [sourceNode.value, targetNode.value],
@@ -542,10 +541,9 @@ function showprededges(newnode, newedges) {
         z: 2
       },
       data: newedges.map(function (e) {
-        const sourceNode = newnode.find((node) => node.name === e.source);
-        const targetNode = datalocal2.nodes.find((node) => node.name === e.target);
+        const targetNode = datalocal2.nodes.find((node) => node['original_name'] === e.target);
         return {
-          coords: [sourceNode.value, targetNode.value],
+          coords: [newnode[0].value, targetNode.value],
           lineStyle: {
             color: '#ff0000',
             opacity: 1,

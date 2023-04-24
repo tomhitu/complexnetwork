@@ -95,6 +95,7 @@ let sore = 0;
 myChart.on('click', function (params) {
     if (params.componentType === 'series') {
         var value = params.name;
+
         if (sore === 0) {
             document.getElementById("startpoint").value = value;
         }
