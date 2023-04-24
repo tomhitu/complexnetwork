@@ -449,7 +449,7 @@ function cluster_edge() {
 
 function shownodecluster() {
     let lesstrans = document.getElementById('lesstransfer');
-    lesstrans.style.display = 'flex';
+    lesstrans.style.display = 'block';
     chartDom.style.display = 'block';
     chartDom2.style.display = 'none';
     oneortwo = 0;
