@@ -15,6 +15,7 @@ myChart2.on('click', function (params) {
             document.getElementById("endpoint").value = value;
         }
     }
+    document.getElementById("nodepoint").value = value;
 });
 
 // focus on start point
