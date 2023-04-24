@@ -624,6 +624,7 @@ function showprededges(newnode, newedges) {
       },
       data: newedges.map(function (e) {
         const targetNode = datalocal2.nodes.find((node) => node.name === e.target);
+        console.log(targetNode);
         return {
           coords: [newnode[0].value, targetNode.value],
           lineStyle: {
