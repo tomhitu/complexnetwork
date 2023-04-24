@@ -262,9 +262,12 @@ function resless() {
 }
 
 function cltype(params) {
+    let gradientbar = document.getElementById('gradientbar');
+    gradientbar.style.display = 'block';
     switch (params) {
         case 0:
             clustertype = 0;
+            gradientbar.style.display = 'none';
             clusternodes('state_num')
             break;
         case 1:
@@ -323,6 +326,7 @@ function cltype(params) {
             break;
         case 7:
             clustertype = 7;
+            gradientbar.style.display = 'none';
             clusteredges('train');
             break;
         case 8:
@@ -346,9 +350,12 @@ function cltype(params) {
     }
 }
 function pariscltype(params) {
+    let gradientbar = document.getElementById('gradientbar');
+    gradientbar.style.display = 'block';
     switch (params) {
         case 0:
             parisclustertype = 0;
+            gradientbar.style.display = 'none';
             clusterparisenodes('cluster_lat_lon')
             break;
         case 1:
@@ -377,6 +384,7 @@ function pariscltype(params) {
             break;
         case 7:
             parisclustertype = 7;
+            gradientbar.style.display = 'none';
             clusterpariseedges('cluster_type');
             break;
         case 8:
@@ -448,6 +456,13 @@ function cluster_edge() {
 }
 
 function shownodecluster() {
+    let gradientbar = document.getElementById('gradientbar');
+    if (clustertype !== 0 && pagetype == 3) {
+        gradientbar.style.display = 'block';
+    }
+    else {
+        gradientbar.style.display = 'none';
+    }
     let lesstrans = document.getElementById('lesstransfer');
     lesstrans.style.display = 'block';
     chartDom.style.display = 'block';
@@ -463,8 +478,6 @@ function shownodecluster() {
 
     let clunodework = document.getElementById('nodecluster');
     let cluedgework = document.getElementById('edgecluster');
-    clunodework.style.display = 'none';
-    cluedgework.style.display = 'none';
 
     let resultdom = document.getElementById('nrresult')
     resultdom.innerHTML = `<p>-Number of nodes: 2719</p>
@@ -482,14 +495,25 @@ function shownodecluster() {
     if (clustertype < 7) {
         clusterbut.style.display = 'flex';
         clusterparisbut.style.display = 'none';
+        clunodework.style.display = 'flex';
+        cluedgework.style.display = 'none';
     }
     else {
         clusterbut.style.display = 'none';
         clusterparisbut.style.display = 'flex';
+        clunodework.style.display = 'none';
+        cluedgework.style.display = 'flex';
     }
 }
 
 function showedgecluster() {
+    let gradientbar = document.getElementById('gradientbar');
+    if (parisclustertype !== 0 && pagetype == 3) {
+        gradientbar.style.display = 'block';
+    }
+    else {
+        gradientbar.style.display = 'none';
+    }
     let lesstrans = document.getElementById('lesstransfer');
     lesstrans.style.display = 'none';
     chartDom.style.display = 'none';

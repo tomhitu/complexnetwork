@@ -1,0 +1,47 @@
+.gradient {
+    --container_width: 300px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    align-items: center;
+    border-radius: 10px;
+    height: 20px;
+    width: 300px;
+    background: linear-gradient(to left, #ff0000, #00ff00);
+}
+
+.gradient::before,
+.gradient::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    /*background: #ffffff;*/
+    top: 0;
+}
+
+.gradient::before {
+    left: 0;
+}
+
+.gradient::after {
+    right: 0;
+}
+
+.gradient .mincl,
+.gradient .maxcl {
+    position: absolute;
+    font-size: 12px;
+    color: #ffffff;
+}
+
+.gradient .mincl {
+    bottom: 0;
+    left: -20px;
+}
+
+.gradient .maxcl {
+    bottom: 0;
+    right: -20px;
+}

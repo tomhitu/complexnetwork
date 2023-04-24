@@ -82,8 +82,11 @@ for (let i = 0; i < 30; i++) {
   statecolorslist.push(color);
 }
 
+let pagetype = 0;
+
 
 function showtype(isshow, num) {
+  pagetype = num;
   let typetrain = document.getElementById('typeoftrian');
   let noedge = document.getElementById('noedge');
   let noother = document.getElementById('noother');
@@ -94,6 +97,7 @@ function showtype(isshow, num) {
   let clmenu = document.getElementById('clmenu');
   let hemenu = document.getElementById('hemenu');
   let cluster = document.getElementById('clustertype');
+  let gradientbar = document.getElementById('gradientbar');
   if (isshow) {
     shortesttype = 0;
     if (oneortwo === 0) {
@@ -123,6 +127,7 @@ function showtype(isshow, num) {
         hemenu.style.display = 'none';
         noedge.style.display = 'none';
         cluster.style.display = 'none';
+      gradientbar.style.display = 'none';
       break;
     case 1:
       lefttop.innerHTML = 'New Pred Egde';
@@ -138,6 +143,7 @@ function showtype(isshow, num) {
         hemenu.style.display = 'none';
         noedge.style.display = 'none';
         cluster.style.display = 'none';
+      gradientbar.style.display = 'none';
         myChart.setOption({
             series: [{
               name: "Nodes",
@@ -179,6 +185,7 @@ function showtype(isshow, num) {
         noedge.style.display = 'none';
         cluster.style.display = 'none';
         noother.style.display = 'block';
+        gradientbar.style.display = 'none';
         break;
       case 3:
         lefttop.innerHTML = 'Clustering';
@@ -195,6 +202,7 @@ function showtype(isshow, num) {
         ifrun = true;
         cltype(3);
         pariscltype(0);
+        gradientbar.style.display = 'block';
         break;
       case 4:
         lefttop.innerHTML = 'Hidden Edge';
@@ -208,6 +216,7 @@ function showtype(isshow, num) {
         hemenu.style.display = 'block';
         noedge.style.display = 'none';
         cluster.style.display = 'none';
+        gradientbar.style.display = 'none';
         myChart.setOption({
             series: [{
               name: "Nodes",
@@ -769,7 +778,8 @@ function showhidedges(hiddennodes, hiddenedges) {
 
 // show the cluster of nodes on map
 function clusternodes(param) {
-  recolor(cluchinanode[param])
+  document.querySelector('.maxcl').textContent = cluchinanode[param];
+  recolor(cluchinanode[param]);
   myChart.setOption({
     series: [
         {
@@ -836,6 +846,7 @@ function clusternodes(param) {
 
 // show the cluster of nodes on map2
 function clusterparisenodes(param) {
+  document.querySelector('.maxcl').textContent = cluparisnode[param];
   recolor(cluparisnode[param])
   myChart2.setOption({
     series: [
@@ -1102,6 +1113,7 @@ function resetcluster() {
 }
 
 function clusteredges(param) {
+  document.querySelector('.maxcl').textContent = cluchinaedge[param];
   recolor(cluchinaedge[param])
   myChart.setOption({
     series: [
@@ -1155,6 +1167,7 @@ function clusteredges(param) {
 }
 
 function clusterpariseedges(param) {
+  document.querySelector('.maxcl').textContent = cluparisedge[param];
   recolor(cluparisedge[param])
   myChart2.setOption({
     series: [
@@ -1180,6 +1193,9 @@ function clusterpariseedges(param) {
         data: datalocal2.edges.map(function (e) {
           const type = param;
           let color = colorslist[e[type]];
+          if (type == 'cluster_type') {
+            color = statecolorslist[e[type]];
+          }
           return {
             coords: [e.value[0], e.value[1]],
             lineStyle: {

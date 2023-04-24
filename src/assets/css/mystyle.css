@@ -64,6 +64,12 @@ canvas {
     left: 700px;
 }
 
+#gradientbar {
+    position: fixed;
+    top: 90px;
+    left: 700px;
+}
+
 #clustertype {
     cusor: pointer;
     display: flex;

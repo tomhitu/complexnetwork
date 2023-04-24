@@ -12,6 +12,7 @@
    <link rel="stylesheet" href="./src/assets/css/inbox.css">
    <link rel="stylesheet" href="./src/assets/css/result.css">
    <link rel="stylesheet" href="./src/assets/css/resilience.css">
+    <link rel="stylesheet" href="./src/assets/css/gradient.css">
 
     <script id='shader-fs' type='x-shader/x-fragment'>
     #ifdef GL_ES
@@ -645,6 +646,12 @@
   </label>
   <span class="selection"></span>
 </div>
+
+<div class="gradient" id="gradientbar" style="display: none;">
+    <span class="mincl">0</span>
+    <span class="maxcl">30</span>
+</div>
+
 
 <div id="clustertype" style="display: none">
     <label class="radio-button" onclick="cluster_node()">
