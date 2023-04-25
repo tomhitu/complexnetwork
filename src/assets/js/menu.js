@@ -488,14 +488,15 @@ function shownodecluster() {
 
     let resultdom = document.getElementById('nrresult')
     resultdom.innerHTML = `<p>-Number of nodes: 2719</p>
-    <p>-Number of edges: 6168</p>
-    <p>-Number of connected components: 1</p>
-    <p>-Size of the largest connected component: 2719</p>
-    <p>-k-core: Graph with 14 nodes and 64 edges</p>
-    <p>-Network density: 0.0016692281524745738</p>
-    <p>-Diameter: 47</p>
-    <p>-Average shortest path length: 8.789288902853249</p>
-    <p>-Efficiency: 0.13798191658642248</p>`
+                      <p>-Number of edges: 6168</p>
+                      <p>-Number of connected components: 1</p>
+                      <p>-Number of nodes of the largest connected component: 2719</p>
+                      <p>-Number of edges of the largest connected component: 6168</p>
+                      <p>-k-core: Graph with 14 nodes and 64 edges</p>
+                      <p>-Network density: 0.0016692281524745738</p>
+                      <p>-Diameter: 47</p>
+                      <p>-Average shortest path length: 8.789288902853249</p>
+                      <p>-Efficiency: 0.13798191658642248</p>`
 
     let clusterbut = document.getElementById('clusterchina');
     clusterbut.style.display = 'flex';
@@ -561,16 +562,16 @@ function showedgecluster() {
 
 
     let resultdom = document.getElementById('nrresult')
-    resultdom.innerHTML = `<p>-Number of nodes: 42057</p>
-                        <p>-Number of edges: 27181</p>
-                        <p>-Number of connected components: 14876</p>
-                        <p>-Size of the largest connected component: 11</p>
-                        <p>-Number of edges in the largest connected component: 11</p>
-                        <p>-k-core of the largest connected component: Graph with 11 nodes and 10 edges</p>
-                        <p>-Network density of the largest connected component: 0.18181818181818182</p>
-                        <p>-Diameter of the largest connected component: 2</p>
-                        <p>-Average shortest path length of the largest connected component: 1.8181818181818181</p>
-                        <p>-Efficiency of the largest connected component: 0.5909090909090909</p>`
+    resultdom.innerHTML = `<p>-Number of nodes: 12237</p>
+                      <p>-Number of edges: 21441</p>
+                      <p>-Number of connected components: 7</p>
+                      <p>-Number of nodes of the largest connected component: 11789</p>
+                      <p>-Number of edges of the largest connected component: 20944</p>
+                      <p>-k-core: Graph with 20 nodes and 94 edges</p>
+                      <p>-Network density: 0.00030142032237870603</p>
+                      <p>-Diameter: 110</p>
+                      <p>-Average shortest path length: 39.75795628616659</p>
+                      <p>-Efficiency: 0.033747367340744995</p>`
 
 
     let clusterbut = document.getElementById('clusterchina');
