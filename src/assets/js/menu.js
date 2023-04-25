@@ -517,7 +517,7 @@ function shownodecluster() {
 
 function showedgecluster() {
     let gradientbar = document.getElementById('gradientbar');
-    if (parisclustertype !== 0 && pagetype == 3) {
+    if (parisclustertype !== 0 && pagetype === 3) {
         gradientbar.style.display = 'block';
     }
     else {
