@@ -98,6 +98,11 @@ function showtype(isshow, num) {
   let hemenu = document.getElementById('hemenu');
   let cluster = document.getElementById('clustertype');
   let gradientbar = document.getElementById('gradientbar');
+  document.getElementById('nricon').textContent = '+';
+  document.getElementById('ccicon').textContent = '+';
+  document.getElementById('heicon').textContent = '+';
+  document.getElementById('peicon').textContent = '+';
+  document.getElementById('spicon').textContent = '+';
   if (isshow) {
     shortesttype = 0;
     if (oneortwo === 0) {
@@ -117,6 +122,7 @@ function showtype(isshow, num) {
     case 0:
       defaultcolor();
       lefttop.innerHTML = 'Shortest Path';
+      document.getElementById('spicon').textContent = '-';
       mapboard.style.display = 'block';
       dashboard.style.display = 'none';
       autoboard.style.display = 'none';
@@ -131,6 +137,7 @@ function showtype(isshow, num) {
       break;
     case 1:
       lefttop.innerHTML = 'New Pred Egde';
+      document.getElementById('peicon').textContent = '-';
       nonepe.style.display = 'block';
       resultpe.style.display = 'none';
         mapboard.style.display = 'block';
@@ -172,6 +179,7 @@ function showtype(isshow, num) {
           break;
       case 2:
         lefttop.innerHTML = 'Network Resilience';
+        document.getElementById('nricon').textContent = '-';
         let radio1_button = document.getElementById("value-1");
         radio1_button.checked = true;
         let radio2_button = document.getElementById("value-2");
@@ -189,6 +197,7 @@ function showtype(isshow, num) {
         break;
       case 3:
         lefttop.innerHTML = 'Clustering';
+        document.getElementById('ccicon').textContent = '-';
         mapboard.style.display = 'block';
         dashboard.style.display = 'none';
         autoboard.style.display = 'none';
@@ -206,6 +215,7 @@ function showtype(isshow, num) {
         break;
       case 4:
         lefttop.innerHTML = 'Hidden Edge';
+        document.getElementById('heicon').textContent = '-';
         mapboard.style.display = 'block';
         dashboard.style.display = 'none';
         autoboard.style.display = 'none';

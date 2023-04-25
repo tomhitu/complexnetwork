@@ -57,34 +57,34 @@
         <li class="sidebar-brand">
             Application Features
         </li>
-        <li onclick="showtype(true, 0)">
-            <a href="#">
-                <i class="sidebar-icon md-inbox"></i>
-                Shortest Path
-            </a>
-        </li>
-        <li onclick="showtype(false, 1)">
-            <a href="#">
-                <i class="sidebar-icon md-star"></i>
-                Pred Edge
-            </a>
-        </li>
         <li onclick="showtype(false, 2)">
             <a href="#">
-                <i class="sidebar-icon md-send"></i>
+                <i class="sidebar-icon md-send" id="nricon">+</i>
                 Network Resilience
             </a>
         </li>
         <li onclick="showtype(false, 3)">
             <a href="#">
-                <i class="sidebar-icon md-drafts"></i>
+                <i class="sidebar-icon md-drafts" id="ccicon">+</i>
                 Cluster Classification
             </a>
         </li>
         <li onclick="showtype(false, 4)">
             <a href="#">
-                <i class="sidebar-icon md-drafts"></i>
+                <i class="sidebar-icon md-drafts" id="heicon">+</i>
                 Hidden Edge
+            </a>
+        </li>
+        <li onclick="showtype(false, 1)">
+            <a href="#">
+                <i class="sidebar-icon md-star" id="peicon">+</i>
+                Pred Edge
+            </a>
+        </li>
+        <li onclick="showtype(true, 0)">
+            <a href="#">
+                <i class="sidebar-icon md-inbox" id="spicon">-</i>
+                Shortest Path
             </a>
         </li>
         <li class="divider"></li>
