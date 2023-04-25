@@ -51,12 +51,14 @@ function prededge() {
     let lat_node = document.getElementById("latpoint").value;
     nonepe.style.display = 'none';
     resultpe.style.display = 'block';
+    document.getElementById('loadmap').style.display = 'block';
     if (oneortwo === 0) {
         axios.post('https://tomhitu.pythonanywhere.com/pred_edges', {
             longitude: lon_node,
             latitude: lat_node
         })
             .then(function (response) {
+                document.getElementById('loadmap').style.display = 'none';
                 let status = response.data.status;
                 let n_degree = response.data.n_degree;
                 let new_neighbor_node = response.data.new_neighbor_node;
@@ -132,6 +134,7 @@ function prededge() {
             longitude: lon_node,
             latitude: lat_node
         }).then(function (response) {
+            document.getElementById('loadmap').style.display = 'none';
             console.log(response)
                 let status = response.data.status;
                 let n_paris_degree = response.data.n_degree;
@@ -222,11 +225,13 @@ function showhidden() {
 }
 
 function ressub() {
+    document.getElementById('loading').style.display = 'block';
     let node_index = document.getElementById("nodepoint").value;
     axios.post('https://tomhitu.pythonanywhere.com/delete_nodes', {
         nodeid: node_index,
         type: oneortwo
     }).then(function (response) {
+        document.getElementById('loading').style.display = 'none';
         console.log(response)
         let status = response.data.status;
         let beforedel = response.data.beforedel;

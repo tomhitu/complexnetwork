@@ -21,26 +21,18 @@ canvas {
   font-size: 24px;
 }
 
-@keyframes loading {
-    0% {
-        opacity: 1;
-    }
-    25% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 1;
-    }
-    75% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
-.loading{
-    animation: loading 4s infinite;
+#loadmap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 800px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #191919;
+    color: #000;
+    font-size: 24px;
 }
 
 .floating-box {

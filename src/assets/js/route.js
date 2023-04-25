@@ -8,12 +8,15 @@ function swap(){
 function spath(){
     let start_node = document.getElementById("startpoint").value;
     let end_node = document.getElementById("endpoint").value;
+
+    document.getElementById('loadmap').style.display = 'block';
     if (oneortwo == 0) {
         axios.post('https://tomhitu.pythonanywhere.com/shortest_path', {
             startnode: start_node,
             endnode: end_node
         })
             .then(function (response) {
+                document.getElementById('loadmap').style.display = 'none';
                 let status = response.data.status;
                 let less_route = response.data.less_route;
                 let less_distance = response.data.less_distance;
@@ -41,6 +44,7 @@ function spath(){
             endnode: end_node
         })
             .then(function (response) {
+                document.getElementById('loadmap').style.display = 'none';
                 let status = response.data.status;
                 let sd_route = response.data.shortest_route;
                 let sd_distance = response.data.shortest_distance;

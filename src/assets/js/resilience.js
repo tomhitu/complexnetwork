@@ -28,7 +28,7 @@ optionbefore = {
     }
   },
   legend: {
-    data: ['before'],
+    data: ['railway'],
     textStyle: {
       color: '#fff'
     }
@@ -56,7 +56,7 @@ optionbefore = {
   ],
   series: [
     {
-      name: 'before',
+      name: 'railway',
       type: 'line',
       stack: 'Total',
       smooth: true,
@@ -97,7 +97,7 @@ optionafter = {
     }
   },
   legend: {
-    data: ['after'],
+    data: ['route'],
     textStyle: {
       color: '#fff'
     }
@@ -128,7 +128,7 @@ optionafter = {
   ],
   series: [
     {
-      name: 'after',
+      name: 'route',
       type: 'line',
       stack: 'Total',
       smooth: true,
@@ -181,7 +181,7 @@ for (let i = 0; i < dataYbe.length; i++) {
 opdistbefore = {
   color: ['#80FFA5'],
   legend: {
-    data: ['before'],
+    data: ['railway'],
     textStyle: {
       color: '#fff'
     }
@@ -218,7 +218,7 @@ opdistbefore = {
   ],
   series: [
     {
-      name: 'before',
+      name: 'railway',
       type: 'bar',
       showBackground: true,
       itemStyle: {
@@ -268,7 +268,7 @@ for (let i = 0; i < dataYbe2.length; i++) {
 opdistafter = {
   color: ['#80FFA5'],
   legend: {
-    data: ['after'],
+    data: ['route'],
     textStyle: {
       color: '#fff'
     }
@@ -305,7 +305,7 @@ opdistafter = {
   ],
   series: [
     {
-      name: 'after',
+      name: 'route',
       type: 'bar',
       showBackground: true,
       itemStyle: {
