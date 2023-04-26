@@ -710,80 +710,182 @@ function showprededges(newnode, newedges) {
 
 // show the hidden edges on map
 function showhidedges(hiddennodes, hiddenedges) {
-  myChart.setOption({
-    series: [{
-          name: "Nodes",
-          type: "scatter3D",
-          coordinateSystem: "geo3D",
-          symbolSize: 8,
+  if (oneortwo === 0) {
+    myChart.setOption({
+      series: [{
+        name: "Nodes",
+        type: "scatter3D",
+        coordinateSystem: "geo3D",
+        symbolSize: 8,
+        itemStyle: {
+          z: 1
+        },
+        emphasis: { // hover node color
           itemStyle: {
-            z: 1
+            color: 'rgba(0, 255, 0, 1)' // 绿色
           },
-          emphasis: { // hover node color
-            itemStyle: {
-              color: 'rgba(0, 255, 0, 1)' // 绿色
+          label: {
+            show: true,
+            formatter: function(params) {
+              return params.name;
             },
-            label: {
-              show: true,
-              formatter: function(params) {
-                  return params.name;
-              },
-              textStyle: {
-                color: '#000',
-             }
-            },
-          },
-          data: datalocal.nodes.map(function (node) {
-            const ifin = hiddennodes.includes(node.name);
-            const color = ifin ? 'royalblue' : 'grey';
-            const opcity = ifin ? 1 : 0.1;
-            return {
-                name: node.name,
-                value: node.value,
-                itemStyle: {
-                  color: color,
-                  opacity: opcity,
-                }
+            textStyle: {
+              color: '#000',
             }
-          }),
-        }]});
-  let tmoption = myChart.getOption();
-  let predSeries = tmoption.series.slice(0, 2); // only keep the initial option
-  let predOption = {
-    ...tmoption,
-    series: predSeries,
-  };
-  predOption.series.push({
-          name: "Edges2",
-          type: "lines3D",
-          coordinateSystem: "geo3D",
-          effect: {
-            show: ifrun,
-            trailWidth: 1,
-            trailOpacity: 0.5,
-            trailLength: 0.2,
-            constantSpeed: 5,
           },
-          blendMode: "lighter",
+        },
+        data: datalocal.nodes.map(function (node) {
+          const ifin = hiddennodes.includes(node.name);
+          const color = ifin ? 'royalblue' : 'grey';
+          const opcity = ifin ? 1 : 0.1;
+          return {
+            name: node.name,
+            value: node.value,
+            itemStyle: {
+              color: color,
+              opacity: opcity,
+            }
+          }
+        }),
+      }]});
+    let tmoption = myChart.getOption();
+    let predSeries = tmoption.series.slice(0, 2); // only keep the initial option
+    let predOption = {
+      ...tmoption,
+      series: predSeries,
+    };
+    predOption.series.push({
+      name: "Edges2",
+      type: "lines3D",
+      coordinateSystem: "geo3D",
+      effect: {
+        show: ifrun,
+        trailWidth: 1,
+        trailOpacity: 0.5,
+        trailLength: 0.2,
+        constantSpeed: 5,
+      },
+      blendMode: "lighter",
+      lineStyle: {
+        curveness: 0.3,
+        width: 1,
+        z: 2
+      },
+      data: hiddenedges.map(function (e) {
+        // console.log(e);
+        const sourceNode = datalocal.nodes.find((node) => node.name === e[0]);
+        const targetNode = datalocal.nodes.find((node) => node.name === e[1]);
+        return {
+          coords: [sourceNode.value, targetNode.value],
           lineStyle: {
-            curveness: 0.3,
-            width: 1,
-            z: 2
-          },
-          data: hiddenedges.map(function (e) {
-            console.log(e);
-            const sourceNode = datalocal.nodes.find((node) => node.name === e[0]);
-            const targetNode = datalocal.nodes.find((node) => node.name === e[1]);
-            return {
-              coords: [sourceNode.value, targetNode.value],
-              lineStyle: {
-                color: '#ff0000',
-                opacity: 1,
-              }
-            };
-          }),
-        })
+            color: '#ff0000',
+            opacity: 1,
+          }
+        };
+      }),
+    })
     myChart.setOption(predOption);
+  }
+  else {
+    myChart2.setOption({
+      series: [{
+        name: "Nodes",
+        type: "scatter3D",
+        coordinateSystem: "geo3D",
+        symbolSize: 8,
+        itemStyle: {
+          z: 1
+        },
+        emphasis: { // hover node color
+          itemStyle: {
+            color: 'rgba(0, 255, 0, 1)' // 绿色
+          },
+          label: {
+            show: true,
+            formatter: function(params) {
+              return params.name;
+            },
+            textStyle: {
+              color: '#000',
+            }
+          },
+        },
+        data: datalocal2.nodes.map(function (node) {
+          const ifin = hiddennodes.includes(node.name);
+          const color = ifin ? 'royalblue' : 'white';
+          const opcity = ifin ? 1 : 0.1;
+          return {
+            name: node.name,
+            value: node.value,
+            itemStyle: {
+              color: color,
+              opacity: opcity,
+            }
+          }
+        }),
+      }]});
+    let tmoption = myChart2.getOption();
+    let predSeries = tmoption.series.slice(0, 2); // only keep the initial option
+    let predOption = {
+      ...tmoption,
+      series: predSeries,
+    };
+    predOption.series.push({
+      name: "Edges2",
+      type: "lines3D",
+      coordinateSystem: "geo3D",
+      effect: {
+        show: ifrun,
+        trailWidth: 1,
+        trailOpacity: 0.5,
+        trailLength: 0.2,
+        constantSpeed: 5,
+      },
+      blendMode: "lighter",
+      lineStyle: {
+        curveness: 0.3,
+        width: 1,
+        z: 2
+      },
+      data: hiddenedges.map(function (e) {
+        // console.log(e);
+        const sourceNode = datalocal2.nodes.find((node) => node.name === e[0]);
+        const targetNode = datalocal2.nodes.find((node) => node.name === e[1]);
+        let coords, opacity;
+        if (sourceNode == null || targetNode == null) {
+          // console.log('error happen with node ', e)
+          // console.log('source ', sourceNode)
+          // console.log('target ', targetNode)
+          if (sourceNode == null && targetNode == null) {
+            coords = [datalocal2[0].value, datalocal2[0].value]
+            opacity = 0
+          }
+          else {
+            if (sourceNode == null) {
+              coords = [targetNode.value, targetNode.value]
+              opacity = 0
+            }
+            if (targetNode == null) {
+              coords = [sourceNode.value, sourceNode.value]
+              opacity = 0
+            }
+          }
+        }
+        else {
+          coords = [sourceNode.value, targetNode.value]
+          opacity = 1
+        }
+        return {
+          coords: coords,
+          lineStyle: {
+            color: '#ff0000',
+            opacity: opacity,
+          }
+        };
+      }),
+    })
+    myChart2.setOption(predOption);
+  }
 }
 
 // show the cluster of nodes on map

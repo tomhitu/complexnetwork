@@ -206,7 +206,7 @@ function prededge() {
 }
 
 function showhidden() {
-    axios.get('https://tomhitu.pythonanywhere.com/hidden_edges?keywords=none')
+    axios.get('https://tomhitu.pythonanywhere.com/hidden_edges?keywords='+oneortwo)
         .then(function (response) {
         let status = response.data.status;
         let hnodes = response.data.hiddennodes;
