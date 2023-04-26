@@ -59,6 +59,15 @@
 	 width: 50%;
 	 margin: auto;
  }
+ .tipmark {
+	 width: 80%;
+	 height: 20px;
+	 display: flex;
+	 justify-content: right;
+	 color: white;
+	 font-size: 15px;
+	 margin: 0 auto 30px auto;
+ }
  .tagmark{
 	 width: 80%;
 	 height: 50px;
