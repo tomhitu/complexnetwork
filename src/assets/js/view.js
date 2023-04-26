@@ -710,6 +710,17 @@ function showprededges(newnode, newedges) {
 
 // show the hidden edges on map
 function showhidedges(hiddennodes, hiddenedges) {
+  document.getElementById('hidden-edges').textContent = hiddenedges.length
+  let hiddened = ''
+
+  for (let i = 0; i < hiddenedges.length; i++) {
+    const [x, y] = hiddenedges[i];
+    hiddened += `${x}->${y}`;
+    if (i !== hiddenedges.length - 1) {
+      hiddened += ', ';
+    }
+  }
+  document.getElementById('hidden-others').textContent = hiddened
   if (oneortwo === 0) {
     myChart.setOption({
       series: [{
