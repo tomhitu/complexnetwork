@@ -727,6 +727,17 @@ function showhidedges(hiddennodes, hiddenedges) {
   }
   document.getElementById('hidden-others').textContent = hiddened
   hiddenedges = hiddenedges.splice(0, 500)
+  let newhiddennodes = [-1, -2]
+  console.log('len', hiddenedges.length)
+  for (let i = 0; i < hiddenedges.length; i++) {
+    console.log(hiddenedges[i])
+    for (let j = 0; j < 1; j++) {
+      if (!newhiddennodes.includes(hiddenedges[i][j])) {
+        newhiddennodes.push(hiddenedges[i][j])
+      }
+    }
+  }
+  console.log(newhiddennodes)
   if (oneortwo === 0) {
     myChart.setOption({
       series: [
@@ -753,9 +764,9 @@ function showhidedges(hiddennodes, hiddenedges) {
           },
         },
         data: datalocal.nodes.map(function (node) {
-          const ifin = hiddennodes.includes(node.name);
-          const color = 'white';
-          // const color = ifin ? 'royalblue' : 'grey';
+          const ifin = newhiddennodes.includes(node.name);
+          // const ifin = hiddennodes.includes(node.name);
+          const color = ifin ? 'royalblue' : 'grey';
           const opcity = ifin ? 1 : 0.1;
           return {
             name: node.name,
@@ -838,10 +849,9 @@ function showhidedges(hiddennodes, hiddenedges) {
           },
         },
         data: datalocal2.nodes.map(function (node) {
-          const ifin = hiddennodes.includes(node.name);
+          const ifin = newhiddennodes.includes(node.name);
           // const ifin = hiddennodes.includes(node.name);
-          const color = 'white';
-          // const color = ifin ? 'royalblue' : 'white';
+          const color = ifin ? 'royalblue' : 'grey';
           const opcity = ifin ? 0.5 : 0.1;
           return {
             name: node.name,
