@@ -49,7 +49,7 @@ $(document).ready(function() {
                             },
                         },
                         viewControl: {
-                            distance: 120,
+                            distance: 50,
                             panMouseButton: 'left',
                             rotateMouseButton: 'right',
                             animation: true,

@@ -54,7 +54,7 @@ $(document).ready(function() {
                             },
                         },
                         viewControl: {
-                            distance: 200,
+                            distance: 50,
                             panMouseButton: 'left',
                             rotateMouseButton: 'right',
                             animation: true,
