@@ -84,6 +84,10 @@ for (let i = 0; i < 30; i++) {
 
 let pagetype = 0;
 
+function getoverview() {
+  window.open('overview.html', '_blank');
+}
+
 
 function showtype(isshow, num) {
   pagetype = num;

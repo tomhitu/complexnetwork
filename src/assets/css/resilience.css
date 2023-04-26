@@ -108,9 +108,28 @@ table { border-collapse: collapse; border-spacing: 0; }
 /** page structure **/
 #dashboard {
   display: block;
-  width: 800px;
+  width: 400px;
   background: #191919;
-  margin: 158px auto 20px auto;
+  margin: auto;
+}
+
+
+#dashboardover {
+  width: 500px;
+  background: #191919;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+}
+
+#dashboardover2 {
+  width: 500px;
+  background: #191919;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
 }
 
 #autoevo {
@@ -123,6 +142,14 @@ table { border-collapse: collapse; border-spacing: 0; }
 #keywords {
   margin: 0 auto 15px auto;
   font-size: 10px;
+}
+
+#keywordscopy {
+  font-size: 15px;
+}
+
+#keywordscopy2 {
+  font-size: 15px;
 }
 
 #keywords2 {
@@ -172,6 +199,38 @@ table { border-collapse: collapse; border-spacing: 0; }
   background-repeat: no-repeat;
   background-position: 100% 100%;
 }
+#keywordscopy thead {
+  cursor: pointer;
+  background: #c9dff0;
+  text-align: left;
+}
+#keywordscopy thead tr th {
+  font-weight: bold;
+  padding: 12px 30px 12px 42px;
+}
+#keywordscopy thead tr th span {
+  padding-right: 20px;
+  font-weight: 600;
+  font-size: 15px;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+}
+#keywordscopy2 thead {
+  cursor: pointer;
+  background: #c9dff0;
+  text-align: left;
+}
+#keywordscopy2 thead tr th {
+  font-weight: bold;
+  padding: 12px 30px 12px 42px;
+}
+#keywordscopy2 thead tr th span {
+  padding-right: 20px;
+  font-weight: 600;
+  font-size: 15px;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+}
 
 #keywords2 thead {
   cursor: pointer;
@@ -213,6 +272,20 @@ table { border-collapse: collapse; border-spacing: 0; }
   color: #ffffff;
 }
 #keywords tbody tr td {
+  text-align: left;
+  padding: 12px 30px 12px 42px;
+}
+#keywordscopy tbody tr {
+  color: #ffffff;
+}
+#keywordscopy tbody tr td {
+  text-align: left;
+  padding: 12px 30px 12px 42px;
+}
+#keywordscopy2 tbody tr {
+  color: #ffffff;
+}
+#keywordscopy2 tbody tr td {
   text-align: left;
   padding: 12px 30px 12px 42px;
 }

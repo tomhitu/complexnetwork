@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Complex Network</title>
+
+
+    <link rel="shortcut icon" type="image/x-icon" href="net.ico">
+
+
+    <link rel="stylesheet" href="./src/assets/css/mystyle.css">
+    <link rel="stylesheet" href="./src/assets/css/form.css">
+    <link rel="stylesheet" href="./src/assets/css/inbox.css">
+    <link rel="stylesheet" href="./src/assets/css/result.css">
+    <link rel="stylesheet" href="./src/assets/css/resilience.css">
+    <link rel="stylesheet" href="./src/assets/css/gradient.css">
+
+    <script id='shader-fs' type='x-shader/x-fragment'>
+    #ifdef GL_ES
+    precision highp float;
+    #endif
+
+    varying vec3 mColor;
+
+    void main(void) {
+        gl_FragColor = vec4(mColor, 1.0);
+    }
+    </script>
+
+    <!-- Vertex Shader //-->
+    <script id='shader-vs' type='x-shader/x-vertex'>
+    attribute vec3 aVertexPosition;
+    attribute vec3 aVertexColor;
+
+    varying vec3 mColor;
+
+    uniform mat4 uMMatrix;
+    uniform mat4 uVMatrix;
+    uniform mat4 uPMatrix;
+
+    void main(void) {
+        mColor = aVertexColor;
+        gl_Position = uPMatrix * uVMatrix * uMMatrix * vec4(aVertexPosition, 1.0);
+        gl_PointSize = 3.0;
+    }
+    </script>
+</head>
+
+<body>
+<div class="dashboard-page">
+    <div id="sidebar" class="sidebar sidebar-default open" role="navigation">
+        <!-- Sidebar header -->
+        <div class="sidebar-header header-cover" style="background-image: url('./src/assets/pic/avatar.jpg');"></div>
+
+        <!-- Sidebar navigation -->
+        <ul class="nav sidebar-nav">
+            <!-- Sidebar brand name -->
+            <li class="sidebar-brand">
+                Dataset Overview
+            </li>
+        </ul>
+    </div>
+
+    <div class="viewpage ticket" style="margin-top: 150px;">
+        <div class="wrapperoverview maprow">
+            <div class="halfbox">
+                <div class="tagmark">Chinese Railway Dataset</div>
+                <div id="main" style="width: 500px; height: 400px; margin: 30px auto;"></div>
+            </div>
+            <div class="halfbox">
+                <div class="tagmark">Paris Multilayer Transport</div>
+                <div id="paris" style="width: 500px; height: 400px; margin: 30px auto;"></div>
+            </div>
+        </div>
+
+        <div>
+            <div class="tagmark2">Network Metrics</div>
+        </div>
+        <div class="wrapperoverview maprow">
+            <div class="lineinfo">
+                <div class="linegraph">
+                    <div id="chinaline1" style="width: 300px; height: 300px; margin: 30px auto;"></div>
+                    <div id="chinaline2" style="width: 300px; height: 300px; margin: 30px auto;"></div>
+                </div>
+                <div class="detailsline">
+                    <span>Number of nodes: 2719</span>
+                    <span>Number of edges: 10789</span>
+                    <span>Number of Density: 0.0014598980655843206</span>
+                    <span>Number of cc: 0.3776427564984455</span>
+                </div>
+            </div>
+            <div class="lineinfo">
+                <div class="linegraph">
+                    <div id="parisline1" style="width: 300px; height: 300px; margin: 30px auto;"></div>
+                    <div id="parisline2" style="width: 300px; height: 300px; margin: 30px auto;"></div>
+                </div>
+                <div class="detailsline">
+                    <span>Number of nodes: 12237</span>
+                    <span>Number of edges: 40533</span>
+                    <span>Number of Density: 0.000270703780139563</span>
+                    <span>Number of cc: 0.13916844404059348</span>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="tagmark2">Nodes & Edges Features</div>
+        </div>
+        <div class="wrapperoverview maprow">
+            <div id="dashboardover">
+                <table id="keywordscopy" cellspacing="0" cellpadding="0">
+                    <thead>
+                    <tr>
+                        <th><span>Node Feature</span></th>
+                        <th><span>Edge Feature</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--                    'node', 'lat', 'lon', 'city_num', 'state_num'-->
+                    <!--'distance', 'train_max_speed', 'arr_time', 'dep_time', 'next_arr_time', 'stay_time', 'travel_time'-->
+                    <tr>
+                        <td>node</td>
+                        <td>distance</td>
+                    </tr>
+                    <tr>
+                        <td>lat</td>
+                        <td>train_max_speed</td>
+                    </tr>
+                    <tr>
+                        <td id="concombefore">lon</td>
+                        <td id="concomafter">arr_time</td>
+                    </tr>
+                    <tr>
+                        <td id="largestbefore">city_num</td>
+                        <td id="largestafter">dep_time</td>
+                    </tr>
+                    <tr>
+                        <td id="largestedgesbefore">state_num</td>
+                        <td id="largestedgesafter">next_arr_time</td>
+                    </tr>
+                    <tr>
+                        <td id="kcoresbefore"></td>
+                        <td id="kcoresafter">stay_time</td>
+                    </tr>
+                    <tr>
+                        <td id="densitybefore"></td>
+                        <td id="densityafter">travel_time</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="dashboardover2">
+                <table id="keywordscopy2" cellspacing="0" cellpadding="0">
+                    <thead>
+                    <tr>
+                        <th><span>Node Feature</span></th>
+                        <th><span>Edge Feature</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--'node_id', 'lat', 'lon', 'type_num'-->
+                    <!--'distance', 'type_num'-->
+                    <tr>
+                        <td>node_id</td>
+                        <td>distance</td>
+                    </tr>
+                    <tr>
+                        <td>lat</td>
+                        <td>type_num</td>
+                    </tr>
+                    <tr>
+                        <td>lon</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>type_num</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+</div>
+
+<span class="sub-title" id="subtitle">
+    <h1 id="lefttop">Network Overview</h1>
+</span>
+
+</body>
+</html>
+
+<script src="./src/assets/js/jquery-3.1.1.min.js"></script>
+<script src="./src/assets/js/axios.js"></script>
+<script src="./src/assets/js/axios.min.js"></script>
+<script src="./src/assets/js/echarts.min.js"></script>
+<script src="./src/assets/js/echarts-gl.min.js"></script>
+
+<script src="./src/assets/js/dataTool.min.js"></script>
+<script src="./src/assets/js/china.js"></script>
+<script src="./src/assets/js/world.js"></script>
+<script src="./src/assets/js/France.js"></script>
+
+<script src="./src/assets/js2/overmap1.js"></script>
+<script src="./src/assets/js/view.js"></script>
+<script src="./src/assets/js/checkTrain.js"></script>
+<script src="./src/assets/js/route.js"></script>
+<script src="./src/assets/js/menu.js"></script>
+
+<script src="./src/assets/js2/overmap2.js"></script>
+<script src="./src/assets/js2/checknodes.js"></script>
+<script src="./src/assets/js2/showresilience.js"></script>
+<script src="./src/assets/js2/infodash.js"></script>

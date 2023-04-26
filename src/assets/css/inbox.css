@@ -35,9 +35,71 @@
 	 min-height: 100%;
 	 border: none;
 }
+ .viewpage{
+	 display: flex;
+	 flex-direction: column;
+	 width: 100%;
+ }
  .wrapper{
 	  position: relative;
 	  height: 100%;
+ }
+ .wrapperoverview{
+	 height: 30%;
+ }
+ .maprow{
+	 display: flex;
+	 flex-direction: row;
+	 margin: auto;
+	 height: 550px;
+ }
+ .halfbox {
+	 display: flex;
+	 flex-direction: column;
+	 width: 50%;
+	 margin: auto;
+ }
+ .tagmark{
+	 width: 80%;
+	 height: 50px;
+	 color: white;
+	 display: flex;
+	 justify-content: center;
+	 align-items: center;
+	 margin: auto;
+	 background: royalblue;
+	 border-radius: 10px;
+	 font-size: 20px;
+ }
+ .tagmark2{
+	 width: 90%;
+	 height: 50px;
+	 color: white;
+	 display: flex;
+	 justify-content: center;
+	 align-items: center;
+	 margin: auto;
+	 background: royalblue;
+	 border-radius: 10px;
+	 font-size: 20px;
+ }
+ .lineinfo {
+	 width: 100%;
+ }
+ .linegraph {
+	 display: flex;
+	 flex-direction: row;
+ }
+ .detailsline {
+	 display: flex;
+	 flex-direction: column;
+	 color: white;
+	 width: 70%;
+	 margin: auto;
+ }
+ .detailsline span {
+	 font-size: 15px;
+	 padding-bottom: 15px;
  }
  .right-menu {
 	 position: relative;
@@ -231,15 +293,18 @@
 }
  .sidebar-default .sidebar-brand {
 	  font-size: 18px;
-	  color: royalblue;
+	  color: #46e141;
 	  font-weight: 600;
 	 background-color: transparent;
+	 text-decoration: underline;
+	 cursor: pointer;
 }
  .sidebar-default .sidebar-brand:hover, .sidebar-default .sidebar-brand:focus {
 	  font-size: 18px;
-	  color: royalblue;
+	  color: #36ad32;
 	  font-weight: 600;
 	 background-color: rgba(0,0,0,0.1);
+	 text-decoration: underline;
 }
  .sidebar-default .sidebar-badge {
 	 color: #fff;
