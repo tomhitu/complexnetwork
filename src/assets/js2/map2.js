@@ -134,7 +134,7 @@ $(document).ready(function() {
                                 z: 2
                             },
                             data: data.edges.map(function (e) {
-                                const color = '#fff';
+                                const color = statecolorslist[e['cluster_type']];
                                 return {
                                     coords: [e.value[0], e.value[1]],
                                     lineStyle: {
