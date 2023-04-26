@@ -49,6 +49,9 @@ canvas {
     left: 290px;
 }
 
+#hidden-others {
+    white-space: pre-line;
+}
 
 #dataset {
     position: fixed;

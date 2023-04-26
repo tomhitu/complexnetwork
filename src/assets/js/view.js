@@ -712,18 +712,25 @@ function showprededges(newnode, newedges) {
 function showhidedges(hiddennodes, hiddenedges) {
   document.getElementById('hidden-edges').textContent = hiddenedges.length
   let hiddened = ''
-
+  if (hiddenedges.length > 500) {
+    hiddened += '(Map only shows 500 edges)\n\n'
+  }
   for (let i = 0; i < hiddenedges.length; i++) {
     const [x, y] = hiddenedges[i];
     hiddened += `${x}->${y}`;
-    if (i !== hiddenedges.length - 1) {
+    if (i%10 === 0 && i !== 0) {
+      hiddened += '\n';
+    }
+    else if (i !== hiddenedges.length - 1) {
       hiddened += ', ';
     }
   }
   document.getElementById('hidden-others').textContent = hiddened
+  hiddenedges = hiddenedges.splice(0, 500)
   if (oneortwo === 0) {
     myChart.setOption({
-      series: [{
+      series: [
+          {
         name: "Nodes",
         type: "scatter3D",
         coordinateSystem: "geo3D",
@@ -747,7 +754,8 @@ function showhidedges(hiddennodes, hiddenedges) {
         },
         data: datalocal.nodes.map(function (node) {
           const ifin = hiddennodes.includes(node.name);
-          const color = ifin ? 'royalblue' : 'grey';
+          const color = 'white';
+          // const color = ifin ? 'royalblue' : 'grey';
           const opcity = ifin ? 1 : 0.1;
           return {
             name: node.name,
@@ -758,7 +766,14 @@ function showhidedges(hiddennodes, hiddenedges) {
             }
           }
         }),
-      }]});
+      },
+        {
+          name: "Edges",
+          lineStyle: {
+            opacity: 0
+          }
+        }
+      ]});
     let tmoption = myChart.getOption();
     let predSeries = tmoption.series.slice(0, 2); // only keep the initial option
     let predOption = {
@@ -799,7 +814,8 @@ function showhidedges(hiddennodes, hiddenedges) {
   }
   else {
     myChart2.setOption({
-      series: [{
+      series: [
+          {
         name: "Nodes",
         type: "scatter3D",
         coordinateSystem: "geo3D",
@@ -823,8 +839,10 @@ function showhidedges(hiddennodes, hiddenedges) {
         },
         data: datalocal2.nodes.map(function (node) {
           const ifin = hiddennodes.includes(node.name);
-          const color = ifin ? 'royalblue' : 'white';
-          const opcity = ifin ? 1 : 0.1;
+          // const ifin = hiddennodes.includes(node.name);
+          const color = 'white';
+          // const color = ifin ? 'royalblue' : 'white';
+          const opcity = ifin ? 0.5 : 0.1;
           return {
             name: node.name,
             value: node.value,
@@ -834,7 +852,15 @@ function showhidedges(hiddennodes, hiddenedges) {
             }
           }
         }),
-      }]});
+      },
+        {
+          name: "Edges",
+          lineStyle: {
+            opacity: 0
+          }
+        }
+      ]
+    });
     let tmoption = myChart2.getOption();
     let predSeries = tmoption.series.slice(0, 2); // only keep the initial option
     let predOption = {
@@ -855,7 +881,7 @@ function showhidedges(hiddennodes, hiddenedges) {
       blendMode: "lighter",
       lineStyle: {
         curveness: 0.3,
-        width: 1,
+        width: 2,
         z: 2
       },
       data: hiddenedges.map(function (e) {
