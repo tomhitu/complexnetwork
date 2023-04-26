@@ -117,40 +117,72 @@
                 <table id="keywordscopy" cellspacing="0" cellpadding="0">
                     <thead>
                     <tr>
-                        <th><span>Node Feature</span></th>
-                        <th><span>Edge Feature</span></th>
+                        <th><span>Feature</span></th>
+                        <th><span>Type</span></th>
                     </tr>
                     </thead>
                     <tbody>
                     <!--                    'node', 'lat', 'lon', 'city_num', 'state_num'-->
                     <!--'distance', 'train_max_speed', 'arr_time', 'dep_time', 'next_arr_time', 'stay_time', 'travel_time'-->
                     <tr>
-                        <td>node</td>
-                        <td>distance</td>
+                        <td>train station number (node)</td>
+                        <td>node feature</td>
                     </tr>
                     <tr>
-                        <td>lat</td>
-                        <td>train_max_speed</td>
+                        <td>train station latitude (lat)</td>
+                        <td>node feature</td>
                     </tr>
                     <tr>
-                        <td id="concombefore">lon</td>
-                        <td id="concomafter">arr_time</td>
+                        <td>train station longitude (lon)</td>
+                        <td>node feature</td>
                     </tr>
                     <tr>
-                        <td id="largestbefore">city_num</td>
-                        <td id="largestafter">dep_time</td>
+                        <td>state (province) of train station (state)</td>
+                        <td>node feature</td>
                     </tr>
                     <tr>
-                        <td id="largestedgesbefore">state_num</td>
-                        <td id="largestedgesafter">next_arr_time</td>
+                        <td>city of train station (city)</td>
+                        <td>node feature</td>
                     </tr>
                     <tr>
-                        <td id="kcoresbefore"></td>
-                        <td id="kcoresafter">stay_time</td>
+                        <td>current station (st_id)</td>
+                        <td>edge feature</td>
                     </tr>
                     <tr>
-                        <td id="densitybefore"></td>
-                        <td id="densityafter">travel_time</td>
+                        <td>target station (st_tg)</td>
+                        <td>edge feature</td>
+                    </tr>
+                    <tr>
+                        <td>train number (train)</td>
+                        <td>edge feature</td>
+                    </tr>
+                    <tr>
+                        <td>max speed of train (train_max_speed)</td>
+                        <td>edge feature</td>
+                    </tr>
+                    <tr>
+                        <td>arrival time (arr_time)</td>
+                        <td>edge feature</td>
+                    </tr>
+                    <tr>
+                        <td>departure time (dep_time)</td>
+                        <td>edge feature</td>
+                    </tr>
+                    <tr>
+                        <td>target arrival time (next_arr_time)</td>
+                        <td>edge feature</td>
+                    </tr>
+                    <tr>
+                        <td>stay time at station (stay_time)</td>
+                        <td>edge feature</td>
+                    </tr>
+                    <tr>
+                        <td>distance of route (distance)</td>
+                        <td>edge feature</td>
+                    </tr>
+                    <tr>
+                        <td>travel time (travel_time)</td>
+                        <td>edge feature</td>
                     </tr>
                     </tbody>
                 </table>
@@ -159,28 +191,52 @@
                 <table id="keywordscopy2" cellspacing="0" cellpadding="0">
                     <thead>
                     <tr>
-                        <th><span>Node Feature</span></th>
-                        <th><span>Edge Feature</span></th>
+                        <th><span>Feature</span></th>
+                        <th><span>Type</span></th>
                     </tr>
                     </thead>
                     <tbody>
                     <!--'node_id', 'lat', 'lon', 'type_num'-->
                     <!--'distance', 'type_num'-->
                     <tr>
-                        <td>node_id</td>
-                        <td>distance</td>
+                        <td>node_id (node_id)</td>
+                        <td>node feature</td>
                     </tr>
                     <tr>
-                        <td>lat</td>
-                        <td>type_num</td>
+                        <td>node_name (node_name)</td>
+                        <td>node feature</td>
                     </tr>
                     <tr>
-                        <td>lon</td>
-                        <td></td>
+                        <td>node latitude (lat)</td>
+                        <td>node feature</td>
                     </tr>
                     <tr>
-                        <td>type_num</td>
-                        <td></td>
+                        <td>node longitude (lon)</td>
+                        <td>node feature</td>
+                    </tr>
+                    <tr>
+                        <td>node type (type)</td>
+                        <td>node feature</td>
+                    </tr>
+                    <tr>
+                        <td>node state (state)</td>
+                        <td>edge feature</td>
+                    </tr>
+                    <tr>
+                        <td>current node (source)</td>
+                        <td>edge feature</td>
+                    </tr>
+                    <tr>
+                        <td>target node (target)</td>
+                        <td>edge feature</td>
+                    </tr>
+                    <tr>
+                        <td>edge type (type)</td>
+                        <td>edge feature</td>
+                    </tr>
+                    <tr>
+                        <td>distance of route (distance)</td>
+                        <td>edge feature</td>
                     </tr>
                     </tbody>
                 </table>
