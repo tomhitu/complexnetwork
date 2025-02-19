@@ -1,12 +1,5 @@
 # Welcom to use complex-node project
 
-## Online Web App
-:fire: Control Page <br>
-:link: https://complexnetwork.uk/<br>
-
-:fire: Overview Page <br>
-:link: https://complexnetwork.uk/overview.html<br>
-
 ## Download the project
 ### Front end
 :zap: Download the project from github. <br>
